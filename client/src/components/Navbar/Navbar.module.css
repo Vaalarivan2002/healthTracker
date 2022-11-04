@@ -1,0 +1,90 @@
+.nav_header {
+    box-shadow: 0px 5px 10px rgba(90, 116, 148, 0.3);
+    height: 10vh;
+    line-height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+
+.nav_anchor {
+  text-decoration: none;
+color: #000;
+text-transform: capitalize;
+}
+
+.nav_heading {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.nav_anchorBtn {
+  /* button is looking like an anchor now! */
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  text-transform: capitalize;
+  color: #000;
+  text-decoration: none;
+  font-size: 16px
+}
+.unlist_style {
+    display: inline-block;
+}
+
+.nav_button {
+    background: none;
+  border: none;
+}
+
+.nav_icon {
+    font-size: 20px;
+  cursor: pointer;
+}
+
+/* the second class is nested inside the 1st one*/
+.unlist_style .list_item {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.toggleBtn {
+    display: none;
+    color: cornflowerblue;
+  }
+
+  @media screen and (max-width: 800px) {
+    .nav_heading {
+        font-size: 25px;
+    }
+
+    .nav_header {
+        padding-right: 20px;
+    }
+    .socialIcons {
+      display: none;
+    }
+    .toggleBtn {
+      display: block;
+    }
+    .list {
+      display: none;
+    }
+    .mobile_nav {
+      display: block;
+      position: absolute;
+      top: 10vh;
+      left: 0;
+      height: 50vh;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0px 5px 10px rgba(90, 116, 148, 0.3);
+      transition: 0.5s;
+      
+    }
+    .unlist_style .list_item,
+    .unlist_style {
+      display: block;
+    }
+  }
+  

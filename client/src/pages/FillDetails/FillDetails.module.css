@@ -1,0 +1,154 @@
+.wrapper,
+.leaderboard {
+  display: flex;
+  justify-content: center;
+}
+.googleIcon{
+  width: 50px;
+  height: 50px;
+  /* transition: 0.3s ; */
+}
+.form_div {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 50px 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--mb-6);
+}
+.form_div * {
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+.form_div h3 {
+  font-size: 26px;
+  font-weight: bolder;
+  line-height: 42px;
+  text-align: center;
+}
+
+.labl {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.instruction {
+  padding-bottom: 5%;
+}
+
+::placeholder {
+  color: #e5e5e5;
+}
+.btn {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #ffffff;
+  color: #080710;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #ffffff;
+  color: #080710;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn_o {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #b22222;
+  color: whitesmoke;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn_g {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #1e90ff;
+  color: whitesmoke;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.left {
+  text-align: left;
+  padding-top: 3px;
+}
+.btn_s {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #191970;
+  color: whitesmoke;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.form_head {
+  margin-bottom: 10%;
+  text-transform: uppercase;
+}
+.social {
+  margin-top: 30px;
+  display: flex;
+}
+.social div {
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255, 255, 255, 0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover {
+  background-color: rgba(255, 255, 255, 0.47);
+}
+.social .fb {
+  margin-left: 25px;
+}
+.social i {
+  margin-right: 4px;
+}
+
+@media only screen and (max-width: 1023px) {
+  .form_div {
+    top: 65%;
+    width: 90%;
+  }
+}
+
