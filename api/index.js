@@ -26,7 +26,6 @@ mongoose.connection.on("disconnected", () => {
 })
 
 app.use(bodyParser.urlencoded({extended: false}))
-// app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors())
 app.use(express.json())

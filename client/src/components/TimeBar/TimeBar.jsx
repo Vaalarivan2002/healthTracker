@@ -4,19 +4,16 @@ import styles from "./TimeBar.module.css"
 import {useNavigate} from 'react-router-dom';
 
 const TimeBar = () => {
-    // console.log(days);
+    const navigate = useNavigate();
+
     let user = JSON.parse(localStorage.getItem('user'))
     const dateToHighlight = parseInt(localStorage.getItem('currentDate').split('-')[0])
     const monthToHighlight = parseInt(localStorage.getItem('currentDate').split('-')[1])
 
-    const navigate = useNavigate();
-
     const [currentWeek, setCurrentWeek] = useState(parseInt(localStorage.getItem('currentWeek')))
-    // const [currentDate]
 
     const handleClick = (e, index, queryDate, queryMonth) => {
         e.preventDefault()
-        // console.log(index);
         let found = true;
         const today = new Date()
         let currentDay = today
@@ -35,10 +32,7 @@ const TimeBar = () => {
             alert("Cannot track for future dates")
         } else {
             localStorage.setItem('currentDate', queryDate + '-' + queryMonth)
-            // navigate('/track')
-            window.location.href = '/sessions'
-            // setDate(queryDate)
-            // setMonth(queryMonth)
+            window.location.href = 'http://localhost:3000/sessions'
         }   
     }
 
@@ -47,6 +41,7 @@ const TimeBar = () => {
         localStorage.setItem('currentDate', currentSaturday[0] + '-' + currentSaturday[1])    
         localStorage.setItem('currentWeek', currentWeek - 1)
         setCurrentWeek(currentWeek - 1)
+        window.location.href = 'http://localhost:3000/sessions'
     }
 
     const handleNextClick = () => {
@@ -59,9 +54,8 @@ const TimeBar = () => {
         }
         localStorage.setItem('currentWeek', currentWeek + 1)
         setCurrentWeek(currentWeek + 1)
+        window.location.href = 'http://localhost:3000/sessions'
     }
-    console.log(dateToHighlight);
-    console.log(monthToHighlight);
 
     return (<>
     <div style={{display: 'inline'}}>

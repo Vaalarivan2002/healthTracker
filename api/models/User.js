@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 import { defaultQuantities } from "./../data/calories.js";
-// import { initialDays } from "./../data/dates.js";
-import {getDates} from "./../data/dates.js"
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -17,14 +15,13 @@ const UserSchema = new mongoose.Schema({
         default: true
     },
     calories: {
-        type: Number
+        type: Number,
+        default: 2300
     },
     email: {
         type: String,
         required: true,
-
-        // uncomment in the end
-        // unique: true
+        unique: true
     },
     password: {
         type: String,
@@ -65,24 +62,16 @@ const UserSchema = new mongoose.Schema({
         data: String,
         default: "",
     },
-    // foods: [
-    //     {
-    //         type: String
-    //     }
-    // ],
     quantities: 
         {
-            // type: [{type: Number}],
             type: [{type: [{type: [{type: Number}]}]}],
-            // default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             default: defaultQuantities
         }
     ,
     dates:
     {
         type: [{type: [{type: [{type: Number}]}]}],
-        // default: getDates()
-    }
+    },   
 }, 
 { timestamps: true})
 

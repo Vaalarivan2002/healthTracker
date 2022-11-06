@@ -8,7 +8,6 @@ const Date = () => {
         <Session text={'Breakfast'} />
         <Session text={'Lunch'} />
         <Session text={'Dinner'} />
-        {/* <Button text={'Track food'}/> */}
         </>
     )
 }

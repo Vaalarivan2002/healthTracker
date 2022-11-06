@@ -9,6 +9,5 @@ router.get("/logout", logout)
 router.post("/email-activate", activateAccount)
 router.put("/forgot-password", forgotPassword)
 router.put("/reset-password", resetPassword)
-// router.get("/user", user)
 
 export default router

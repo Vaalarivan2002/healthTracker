@@ -4,7 +4,7 @@ import Food from "./../../components/Food/Food.jsx"
 
 const Nutrition = () => {
     let user = JSON.parse(localStorage.getItem('user'))
-
+    const relevantCalorieIndex = (user.calories - 1600) / 200
     return (
         <>
         <h1>Recommended nutrition</h1>
@@ -16,7 +16,7 @@ const Nutrition = () => {
                 const index = food.index
                 return (                    
                     <li key={index}>
-                    <Food index={index} name={food.name} target={food.quantity} isWeekly={food.isWeekly} isSubGrp={food.subgroup} isOunce={food.isOunce} type={"Nutrition page"} />
+                    <Food index={index} name={food.name} target={food.quantity[relevantCalorieIndex]} isWeekly={food.isWeekly} isSubGrp={food.subgroup} isOunce={food.isOunce} type={"Nutrition page"} />
                     </li>
                 )
             
@@ -31,7 +31,7 @@ const Nutrition = () => {
             if (food.isWeekly) {                
                 return (                    
                     <li key={index}>
-                    <Food index={index} name={food.name} target={food.quantity} isWeekly={food.isWeekly} isSubGrp={food.subgroup} isOunce={food.isOunce} type={"Nutrition page"} />
+                    <Food index={index} name={food.name} target={food.quantity[relevantCalorieIndex]} isWeekly={food.isWeekly} isSubGrp={food.subgroup} isOunce={food.isOunce} type={"Nutrition page"} />
                     </li>
                 )
             } 

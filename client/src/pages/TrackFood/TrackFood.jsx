@@ -1,4 +1,3 @@
-// Track navbar link shud to redirect to sessions. Timebar click shud redirect to sessions. all session click shud redirect to trackfood
 import axios from "axios"
 import styles from "./TrackFood.module.css"
 import Food from "./../../components/Food/Food.jsx"
@@ -8,13 +7,9 @@ import Button from "./../../components/Button/Button.jsx"
 import { uppercaseWords } from "../../utils/capitalize"
 import { foods } from "./../../data/foods.js"
 import { foodMap } from "./../../data/foods.js"
-import { parents, children } from "./../../data/foods.js"
-import { dummyMap } from "./../../data/times.js"
+import ErrorPage from "./../ErrorPage/ErrorPage.jsx"
 
 const TrackFood = () => {
-    // query to the backend with (username, session, date) params
-    // obtain FoodList and display all Food components
-    // console.log(foodMap);
     let user = JSON.parse(localStorage.getItem('user'))
     const session = uppercaseWords(localStorage.getItem('session'))
     const relevantCalorie = user.calories
@@ -32,11 +27,11 @@ const TrackFood = () => {
             innerIndex = (innerIndex + 6) % 7
             if (innerIndex === 6) {
                 outerIndex--
-            }
-            // break
+            }            
         }
         return [outerIndex, innerIndex, user.quantities[outerIndex][innerIndex]]
     }
+
     const todayDate = parseInt(localStorage.getItem('currentDate').split('-')[0])
     const todayMonth = parseInt(localStorage.getItem('currentDate').split('-')[1])
 
@@ -46,38 +41,9 @@ const TrackFood = () => {
     const [foodSearch, setFoodSearch] = useState(false)
     const [categorySearch, setCategorySearch] = useState(true)
     const [buttonText, setButtonText] = useState("Track by foods")
-    const [multiDaysIndex, setMultiDaysIndex] = useState(10);
-
     const [date, setDate] = useState(todayDate)
     const [month, setMonth] = useState(todayMonth)
-    // const [weekIndex, setWeekIndex] = useState(10)
-    const handleTimebarClick = (e, index, queryDate, queryMonth) => {
-        e.preventDefault()
-        console.log(index);
-        let found = true;
-        const today = new Date()
-        let currentDay = today
-        let iterations = 0
-        let offset = 1
-        while (currentDay.getMonth() + 1 !== queryMonth || currentDay.getDate() !== queryDate) {
-            currentDay = new Date(new Date().setDate(today.getDate() - offset))
-            offset++
-            iterations++
-            if (iterations > 79) {
-                found = false
-                break
-            }
-        }
-        if (!found) {
-            alert("Cannot track for future dates")
-        } else {
-            localStorage.setItem('currentDate', queryDate + '-' + queryMonth)
-            setDate(queryDate)
-            setMonth(queryMonth)
-        }   
-    }
-    // setQuantities(fetchData(date, month))
-    
+    const [errorMsg, setErrorMsg] = useState(null)
 
     const handleClick = async (e) => {
         e.preventDefault()
@@ -97,7 +63,6 @@ const TrackFood = () => {
             for (let index = outerIndex + 1; index < 11; index++) {
                 quantitiesCopy.push(user.quantities[outerIndex])
             }
-            // console.log(quantitiesCopy);
             const reqObj = {
                 quantities: quantitiesCopy,
                 username: user.username
@@ -106,7 +71,7 @@ const TrackFood = () => {
             localStorage.setItem('user', JSON.stringify(res.data))
             console.log(res.data);
         } catch (err) {
-
+            setErrorMsg('Something went wrong!')
         }
     }
 
@@ -121,7 +86,6 @@ const TrackFood = () => {
         setQuantities(quantitiesCopy)
     }
 
-
     const minusHandler = (index, parentIndex) => {
         let quantitiesCopy = quantities.slice(0)
         if (index === parentIndex)
@@ -132,10 +96,9 @@ const TrackFood = () => {
         }
         setQuantities(quantitiesCopy)
     }
-    // console.log(foodMap);
+    
     const handleSearchClick = (e) => {
         e.preventDefault()
-        // setButtonText("Track by category")
         if (foodSearch) {
             setSearchCategory("")    
             setFood("")
@@ -149,18 +112,12 @@ const TrackFood = () => {
             setButtonText("Track by category")
         }
     }
-
-    const handlePrevClick = () => {
-        setMultiDaysIndex(multiDaysIndex - 1)
-    }
-
-    const handleNextClick = () => {
-        setMultiDaysIndex(multiDaysIndex + 1)
-    }
     
-return (
-<>
-        <TimeBar />
+    return (
+    <>
+    {errorMsg ? <ErrorPage errorMsg={'Something went wrong!'}/> : 
+    <>
+<TimeBar />
         <div>
         <Button text={buttonText} onClickMethod={handleSearchClick} />
 
@@ -178,7 +135,7 @@ return (
                 })
                 .map((foodName) => {                    
                     const category = foodName.value
-                    const index = category.index
+                    const index = category.index    
                     const parentIndex = category.parentIndex
 
                     // write separate styles fr this 'type'
@@ -203,7 +160,7 @@ return (
             if (category.subgroup) {                
                 return (                    
                     <li key={index}>
-                    <Food index={index} name={category.name} target={category.quantity} isWeekly={category.isWeekly} isSubGrp={category.subgroup} eatenQuantity={quantities[index]} plusHandler={plusHandler} minusHandler={minusHandler} isOunce={category.isOunce} type={"Tracker page by category"} trackHide={category.notShowAdder} parentIndex={category.parentIndex} /> 
+                    <Food index={index} name={category.name} target={category.quantity[relevantCalorieIndex]} isWeekly={category.isWeekly} isSubGrp={category.subgroup} eatenQuantity={quantities[index]} plusHandler={plusHandler} minusHandler={minusHandler} isOunce={category.isOunce} type={"Tracker page by category"} trackHide={category.notShowAdder} parentIndex={category.parentIndex} /> 
                     </li>
                 )
             } else {
@@ -211,7 +168,7 @@ return (
                 // write separate styles fr groups
                 return (
                     <li key={index}>
-                    <Food index={index} name={category.name} target={category.quantity} isWeekly={category.isWeekly} isSubGrp={category.subgroup} eatenQuantity={quantities[index]} minusHandler={minusHandler} plusHandler={plusHandler} isOunce={category.isOunce} type={"Tracker page by category"} trackHide={category.notShowAdder} parentIndex={category.parentIndex} />
+                    <Food index={index} name={category.name} target={category.quantity[relevantCalorieIndex]} isWeekly={category.isWeekly} isSubGrp={category.subgroup} eatenQuantity={quantities[index]} minusHandler={minusHandler} plusHandler={plusHandler} isOunce={category.isOunce} type={"Tracker page by category"} trackHide={category.notShowAdder} parentIndex={category.parentIndex} />
                     </li>
                 )
             }
@@ -219,7 +176,11 @@ return (
         </ul>
         <Button text={`Track for ${session}`} onClickMethod={handleClick} />
         </div>
-</>
+    </>
+    }
+    
+        </>
+    
     )
 }
 

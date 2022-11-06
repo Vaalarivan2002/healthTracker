@@ -16,21 +16,16 @@ const userDetailsFormat = {
     gender: "",
     height: "",
     weight: "",
-    // calories: ""
 };
 
-// display this route only when auth is true
 const Profile = () => {
-    // const user = useContext(User);
-    const user = JSON.parse(localStorage.getItem('user'))
 
-    const {loading, dispatch} = useContext(AuthContext)
     const [errorMsg, setErrorMsg] = useState(null)
-    const [invalidAccess, setInvalidAccess] = useState(false)
     const [userDetails, setUserDetails] = useState(
         userDetailsFormat
     );
     const [calories, setCalories] = useState(null)
+    
 
     const username = localStorage.getItem('username')
     const changeUserDetails = (args) => {
@@ -66,13 +61,12 @@ const Profile = () => {
                 setErrorMsg("Something went wrong!")
             }
         }
-        getResults()    // dont forget to call this!
-    }, [])  // [] indicates it will run only once after this component mounts initially
+        getResults()    
+    }, [])  
 
     const handleClick = async e => {
         e.preventDefault()
         const keys = Object.keys(userDetails)
-        let ok = true
         for (let index = 0; index < keys.length; index++) {
             const element = keys[index];
             if (userDetails[element] === "") {
@@ -81,13 +75,7 @@ const Profile = () => {
             }
             
         }
-        // keys.forEach((key) => {
-        //     if (userDetails[key] === "") {
-        //         alert(`Enter a valid ${key}`)
-        //         ok = false
-                
-        //     }
-        // })
+        
         try {
             const reqObj = {...userDetails, username: username}
             reqObj.age = parseInt(reqObj.age)
@@ -99,7 +87,6 @@ const Profile = () => {
             setCalories(BMR(gender, age, height, weight))
             toast("Saved changes successfully")
         } catch(err) {
-            // dispatch({type: "VERIFICATION_FAILURE", payload: err.response.data.error})
             setErrorMsg("Something went wrong")
         }
     }

@@ -10,7 +10,6 @@ import axios from 'axios';
 import { Auth } from './../../App.js';
 
 const Navbar = () => {
-  // console.log(auth);
   const [show, setShow] = useState(false)
   const auth = useContext(Auth)
   let linksCopy = links
@@ -26,7 +25,6 @@ const Navbar = () => {
           <h1>
           <a className={styles.nav_heading} href={"/"} >HealthifyYou</a>
           </h1>
-          {/* <h1 style={{'color': 'cornflowerblue'}}>HealthifyYou</h1> */}
         </div>
         <nav className={`${show ? `${styles.mobile_nav}` : `${styles.list}`}`}>
           <ul className={styles.unlist_style}>
@@ -71,4 +69,5 @@ const Navbar = () => {
     </>
   )
 }
+
 export default Navbar

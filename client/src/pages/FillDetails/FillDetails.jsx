@@ -7,6 +7,7 @@ import { AuthContext } from "./../../context/AuthContext.js"
 import { useState } from "react"
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
+import { BMR, relevantCalorie } from "../../data/foods"
 
 const userDetailsFormat = {
     age: "",
@@ -19,11 +20,9 @@ const FillDetails = () => {
     const navigate = useNavigate()
     
     const [error, setError] = useState(null)
-    const [calories, setCalories] = useState(null)
     const [userDetails, setUserDetails] = useState(
         userDetailsFormat
     );
-
     const changeUserDetails = (args) => {
         let prevState = userDetails
         prevState[args.key] = args.value;
@@ -32,7 +31,6 @@ const FillDetails = () => {
     const isNewMember = localStorage.getItem('newMember')
     const username = localStorage.getItem('username')
     if (isNewMember === 'false') {
-        // navigate(`/profile/${username}`)
         window.location.href = `http://localhost:3000/profile/${username}`
     }
     
@@ -44,7 +42,6 @@ const FillDetails = () => {
             reqObj.height = parseInt(reqObj.height)
             reqObj.weight = parseInt(reqObj.weight)
             const res = await axios.put(`/users/${username}`, reqObj)
-            setCalories(res.data.calories)
             localStorage.setItem("newMember", 'false')
             navigate(`/profile/${username}`)
             toast("Saved profile successfully")
@@ -55,52 +52,40 @@ const FillDetails = () => {
     }
 
     return (<>
-        
-        {/* <form action="" onSubmit={handleClick}>
-
-            <Button ></Button>
-        </form> */}
-        {/* <h1 className={styles.headingContainer}>Hi</h1> */}
-      {/* <div className={`${styles.wrapper}`}>
-        <div className={`${styles.leaderboard}`}>
-          <form className={styles.form_div}>
-            <h3 className={styles.form_head}>Fill details</h3>
-            <div className={`${styles.formContainer}`}> */} 
-            <form >
-            <FormField 
-            type={'text'} 
-            placeholder='Age'
-            name={'age'}
-            value={userDetails}
-            setter={changeUserDetails}
-            />
-            <FormField 
-            type={'dropdown'} 
-            placeholder='Gender'
-            name={'gender'}
-            value={userDetails}
-            setter={changeUserDetails}
-            dropdownValues={['Male', 'Female']}
-            />
-            <FormField 
-            type={'text'}
-            placeholder='Height'
-            name={'height'}
-            value={userDetails}
-            setter={changeUserDetails}
-            />
-            <FormField 
-            type={'text'}
-            placeholder='Weight'
-            name={'weight'}
-            value={userDetails}
-            setter={changeUserDetails}
-            />
-            <Button onClickMethod={handleClick} text='Save'/>
-            </form>
-            {/* {calories && <span>Your daily calorie needs : {Math.round(calories)} calories per day</span>} */}
-            {error && <span>{(error)}</span>}
-            <ToastContainer />
+        <form >
+        <FormField 
+        type={'text'} 
+        placeholder='Age'
+        name={'age'}
+        value={userDetails}
+        setter={changeUserDetails}
+        />
+        <FormField 
+        type={'dropdown'} 
+        placeholder='Gender'
+        name={'gender'}
+        value={userDetails}
+        setter={changeUserDetails}
+        dropdownValues={['Male', 'Female']}
+        />
+        <FormField 
+        type={'text'}
+        placeholder='Height'
+        name={'height'}
+        value={userDetails}
+        setter={changeUserDetails}
+        />
+        <FormField 
+        type={'text'}
+        placeholder='Weight'
+        name={'weight'}
+        value={userDetails}
+        setter={changeUserDetails}
+        />
+        <Button onClickMethod={handleClick} text='Save'/>
+        </form>
+        {error && <span>{(error)}</span>}
+        <ToastContainer />
     </>)
 }
 

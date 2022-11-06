@@ -5,18 +5,15 @@ import styles from "./Food.module.css"
 import { uppercaseWords } from "./../../utils/capitalize.js"
 
 const Food = (props) => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    const {index, name, target, isWeekly, isSubGrp, eatenQuantity, minusHandler, plusHandler, isOunce, type, text, trackHide, parentIndex, foodName, categoryTarget, subcategoryEaten, subcategoryTarget, categoryEaten, searchString} = props
+    const {index, name, target, isWeekly, eatenQuantity, minusHandler, plusHandler, isOunce, type, trackHide, parentIndex, foodName, subcategoryEaten, categoryEaten, searchString} = props
     let message
     const leftToEat = target - eatenQuantity
     let frequency = "Weekly"
     let unit = "ounces"
-    let time = "per week"
     if (!isOunce) {
         unit = "cups"
     }
     if (!isWeekly) {
-        time = "per day"
         frequency = "Daily"
     } 
     if (leftToEat < 0) {
@@ -39,18 +36,15 @@ const Food = (props) => {
         case "Tracker page by category":
             return <>
             <div>
-            {/* <h3>{name} : Remaining : {leftToEat} {unit} {time}, Eaten Quantity : {eatenQuantity} {unit} {time} </h3> */}
-            {/* <h3>{name} : {frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} {time} </h3> */}
             <h3>{name} : {frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} </h3>
             <button onClick={handlePlus} hidden={trackHide} > + </button>
             <button onClick={handleMinus} hidden={trackHide || eatenQuantity === 0} > - </button>
             {message && <span>{message}</span>}
             </div></>
         case "Tracker page by food":
-            let categoryTarget, subcategoryTarget, subcategoryName, categoryName, categoryUnit, subcategoryUnit, categoryFrequency, subcategoryFrequency
+            let categoryTarget, subcategoryTarget, categoryName, categoryUnit, subcategoryUnit, categoryFrequency, subcategoryFrequency
             categoryTarget = foods[parentIndex].quantity
             subcategoryTarget = foods[index].quantity
-            subcategoryName = foods[index].name
             categoryName = foods[parentIndex].name
             subcategoryUnit = foods[index].isOunce ? "ounces" : "cups"
             categoryUnit = foods[parentIndex].isOunce ? "ounces" : "cups"
@@ -121,38 +115,8 @@ const Food = (props) => {
             <h3>{name} : {target} {unit}</h3>
         </div>
             </>
-        case "Pattern page":
-            // fill here
-            return <>
-            <div>
-            <h3>{name} : {eatenQuantity}/{target} {unit} {time} {text} </h3>
-        </div>
-            </>
-            default:
+        default:
     }
-    
-//      return (<>
-//      {type === "Tracker page" ?  
-        
-        
-//         <div>
-//             {/* <h3>{name} : Remaining : {leftToEat} {unit} {time}, Eaten Quantity : {eatenQuantity} {unit} {time} </h3> */}
-//             {/* <h3>{name} : {frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} {time} </h3> */}
-//             <h3>{name} : {frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} </h3>
-//             <button onClick={handlePlus}> + </button>
-//             <button onClick={handleMinus}> - </button>
-//             {message && <span>{message}</span>}
-//             </div>   
-//         : 
-//         <div>
-//             <h3>{name} : {target} {unit}</h3>
-//         </div>
- 
-// }
-    
-//     </>
-    
-//     )
 }
 
 export default Food

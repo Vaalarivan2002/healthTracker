@@ -1,6 +1,3 @@
-const today = new Date()
-const date = today.getDate()
-const month = today.getMonth() + 1
 export const links = [
     {
       id: 1,
@@ -34,27 +31,30 @@ export const links = [
     
   ]
 
-  export const authOnlyLinks = [
-    {
-      id: 1,
-      url: "/",
-      text: "home",
-    },
-    {
-      id: 2,
-      url: "/profile",
-      text: "profile",
-    },
-    {
-      id: 3,
-      url: `/sessions`,
-      text: "track",
-    },
-    {
-      id: 4,
-      url: "/pattern",
-      text: "analytics",
-    },
-    // logout is a separate component
-    
-  ]
+export const authOnlyLinks = [
+  {
+    id: 1,
+    url: "/",
+    text: "home",
+  },
+  {
+    id: 2,
+    url: "/profile",
+    text: "profile",
+  },
+  {
+    id: 3,
+    url: `/sessions`,
+    text: "track",
+  },
+  {
+    id: 4,
+    url: "/pattern",
+    text: "analytics",
+  },
+  {
+    id: 5,
+    url: "/nutrition",
+    text: 'nutrition'
+  }    
+]

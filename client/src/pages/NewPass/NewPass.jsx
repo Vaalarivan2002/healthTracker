@@ -15,9 +15,11 @@ const NewPass = () => {
         password: undefined,
         passwrdToConfirm: undefined
     })
+
     const handleChange = (e) => {
         setCredentials(prev => ({...prev, [e.target.id] : e.target.value}))
     }
+
     const handleClick = async e => {
         e.preventDefault()
         const currentURL = window.location.href
@@ -47,6 +49,7 @@ const NewPass = () => {
             dispatch({type: "VERIFICATION_FAILURE", payload: err.response.data.error})
         }
     }
+    
     return (<>
         <input type="password" placeholder="New password" id="password" onChange={handleChange}/>
         <input type="password" placeholder="Confirm password" id="passwrdToConfirm" onChange={handleChange}/>

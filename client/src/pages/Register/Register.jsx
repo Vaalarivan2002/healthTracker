@@ -37,14 +37,13 @@ const Register = () => {
                 dispatch({type: "REGISTER_RESET"})
                 if (!isValidEmail) {
                     alert("Please enter a valid email.")
-
-                    // handle the case when passwords dont fit the criteria(before deployment)
+                } else if (!isValidPasswrd) {
+                    alert("Password length must be atleast 8.")
                 } else {
                     alert("Passwords don't match.")
                 }
             }
         } catch (err) {
-
             // AxiosError structure
             dispatch({type: "REGISTER_FAILURE", payload: err.response.data.error})
         }

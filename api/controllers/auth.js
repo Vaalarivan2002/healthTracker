@@ -54,7 +54,6 @@ export const activateAccount = (req, res, next) => {
                     return next(createError("Incorrect or expired link.", 400))
                 }
                 const {username, email, password} = decodedToken
-                // const user = User.findOne({username : username})
                 User.findOne({username: username}).exec((err, data) => {
                     if (data) {
                         return next(createError("Username is already in use.", 400))    
@@ -76,18 +75,12 @@ export const activateAccount = (req, res, next) => {
                     newUser.save((err, success) => {
                         if (err) {
                             console.log("Error in signing in while account activation: ", err);
-                            // return next(createError("Error activating account", 400))
                             return next(createError(err.message, 400))
                         } else {
-                            // console.log(newUser);
                             const { password, isAdmin, ...otherDetails
                             } = newUser._doc
                             res.json({
                                 message: "Register success!",
-                                // username: username,
-                                // newMember: newUser.newMember,
-                                // quantities: newUser.quantities,
-                                // dates: newUser.dates
                                 ...otherDetails
                             })
                         }
@@ -126,8 +119,6 @@ export const login = async (req, res, next) => {
 
 export const logout = (req, res) => {
     res.cookie('access_token', '', {maxAge: 1})
-    
-    // localStorage.removeItem("user")  // it's in frontend    
     res.redirect('http://localhost:3000')
 }
 

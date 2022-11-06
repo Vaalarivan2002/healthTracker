@@ -15,7 +15,6 @@ const Login = () => {
     if (user != null) {
         // eslint-disable-next-line no-restricted-globals
         history.go(-1)
-        // uncomment the above line before production
     }
 
     const [isVerified, setIsVerified] = useState(false)
@@ -35,8 +34,6 @@ const Login = () => {
             const res = await axios.post("/auth/login", credentials)
                 dispatch({type: "LOGIN_SUCCESS", payload: res.data})
                 setAuth(true);
-                console.log(res.data);
-                // use case : if page is authed but user isnt newmember, then fill-details page shud redirect to profile page
                 localStorage.setItem('newMember', 'false')
                 localStorage.setItem('username', res.data.username)
                 navigate("/")
@@ -55,7 +52,6 @@ return <>
         <input type="password" placeholder="Password" id="password" onChange={handleChange}/>
         <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={verifyCallback} />
         <Button disabled={loading || !isVerified} onClickMethod={handleClick} text={'Login'}/>
-        {/* <button disabled={loading || !isVerified}>Login</button>   */}
         <a href="http://localhost:3000/reset-password">Forgot password?</a>
         {error && <span>{error}</span>}
         </form>
