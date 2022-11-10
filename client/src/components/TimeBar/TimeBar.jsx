@@ -2,9 +2,11 @@ import { useState } from "react"
 import Button from "../Button/Button"
 import styles from "./TimeBar.module.css"
 import {useNavigate} from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+
 
 const TimeBar = () => {
-    const navigate = useNavigate();
 
     let user = JSON.parse(localStorage.getItem('user'))
     const dateToHighlight = parseInt(localStorage.getItem('currentDate').split('-')[0])
@@ -33,6 +35,7 @@ const TimeBar = () => {
         } else {
             localStorage.setItem('currentDate', queryDate + '-' + queryMonth)
             window.location.href = 'http://localhost:3000/sessions'
+            // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
         }   
     }
 
@@ -41,7 +44,8 @@ const TimeBar = () => {
         localStorage.setItem('currentDate', currentSaturday[0] + '-' + currentSaturday[1])    
         localStorage.setItem('currentWeek', currentWeek - 1)
         setCurrentWeek(currentWeek - 1)
-        window.location.href = 'http://localhost:3000/sessions'
+            // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
+            window.location.href = 'http://localhost:3000/sessions'
     }
 
     const handleNextClick = () => {
@@ -54,23 +58,37 @@ const TimeBar = () => {
         }
         localStorage.setItem('currentWeek', currentWeek + 1)
         setCurrentWeek(currentWeek + 1)
-        window.location.href = 'http://localhost:3000/sessions'
+            // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
+            window.location.href = 'http://localhost:3000/sessions'
     }
 
     return (<>
-    <div style={{display: 'inline'}}>
+    <br />
+    <div className={styles.timesContainer}>
         {
             user.dates[currentWeek].map((ele, index) => {
                 if (dateToHighlight === ele[0] && monthToHighlight === ele[1]) {
-                    return (<button key={index} style={{display: 'inline', color: 'lightblue'}} onClick={(e) => handleClick(e, index, ele[0], ele[1])} >{ele[0]}/{ele[1]} </button>)    
+                    return (<button key={index} style={{display: 'inline', backgroundColor: 'cornflowerblue'}} onClick={(e) => handleClick(e, index, ele[0], ele[1])} className={styles.button}>{ele[0]}/{ele[1]} </button>)    
                 }
-                return (<button key={index} style={{display: 'inline'}} onClick={(e) => handleClick(e, index, ele[0], ele[1])}>{ele[0]}/{ele[1]} </button>)
+                return (<button key={index} style={{display: 'inline'}} onClick={(e) => handleClick(e, index, ele[0], ele[1])} className={styles.button}>{ele[0]}/{ele[1]} </button>)
             })
         }
-        <Button text={'Previous week'} hidden={currentWeek === 0} onClickMethod={handlePrevClick} />
+        
+        </div>
+        <br />
+        <div className={styles.timesContainer}>
+            <div hidden={currentWeek === 0}>
+        <FontAwesomeIcon icon={faArrowLeft} onClick={handlePrevClick} />
+        &nbsp;
+        <Button text={'Previous week'} hidden={currentWeek === 0} onClickMethod=
+        {handlePrevClick} />
+        </div>
+        <div hidden={currentWeek === 10}>
         <Button text={'Next week'} hidden={currentWeek === 10} onClickMethod={handleNextClick} />
-        <div></div>
-    </div>
+        &nbsp;
+        <FontAwesomeIcon icon={faArrowRight} onClick={handleNextClick} />
+        </div>
+        </div>
     </>)
 }
 

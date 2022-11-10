@@ -15,7 +15,8 @@ export const foods = [
         quantity: [2, 2, 2, 3, 3, 4, 4, 4],
         index: 0,
         notShowAdder: true,
-        parentIndex: -1
+        parentIndex: -1,
+        foodList: []
     },
     {
         name: "Dark-Green Vegetables",        
@@ -72,6 +73,7 @@ export const foods = [
         quantity: [5, 6, 6, 7, 8, 9, 10, 10],
         index: 7,
         notShowAdder: true,
+        foodList: [],
         parentIndex: -1
     }, 
     {
@@ -105,7 +107,8 @@ export const foods = [
         quantity: [5, 5, 6, 6, 6, 6, 7, 7],
         index: 11,
         notShowAdder: true,
-        parentIndex: -1
+        parentIndex: -1,
+        foodList: [],
     }, 
     {
         name: "Meats, Poulty, Eggs",
@@ -144,6 +147,9 @@ foods.forEach(element => {
     if (element.foodList) {
         element.foodList.forEach(ele => {
             foodMap.push({key: ele, value: element})
+            if (element.parentIndex !== element.index && element.index !== -1) {
+                foods[element.parentIndex].foodList.push(ele)
+            }
         })
     }
 });

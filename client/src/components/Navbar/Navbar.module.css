@@ -5,11 +5,12 @@
     display: flex;
     justify-content: space-between;
     padding: 0 50px;
+    
 }
 
 .nav_anchor {
   text-decoration: none;
-color: #000;
+color: white;
 text-transform: capitalize;
 }
 
@@ -20,11 +21,11 @@ text-transform: capitalize;
 
 .nav_anchorBtn {
   /* button is looking like an anchor now! */
-  background-color: white;
+  background-color:#262626;
   border: none;
   cursor: pointer;
   text-transform: capitalize;
-  color: #000;
+  color: white;
   text-decoration: none;
   font-size: 16px
 }

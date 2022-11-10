@@ -30,9 +30,13 @@ export const register = async (req, res, next) => {
             from: 'pvaalarivan@gmail.com',
             to: email,
             subject: 'Account Activation Link',
+            // html: `
+            // <h2>Please click on given link to activate your account</h2>
+            // <a href="${process.env.CLIENT_URL}/authentication/activate/${token}">${process.env.CLIENT_URL}/authentication/activate/${token}</a>
+            // `
             html: `
             <h2>Please click on given link to activate your account</h2>
-            <a href="${process.env.CLIENT_URL}/authentication/activate/${token}">${process.env.CLIENT_URL}/authentication/activate/${token}</a>
+            <a href="http://localhost:3000/authentication/activate/${token}">http://localhost:3000/authentication/activate/${token}</a>
             `
         };  
         const res1 = await mg.messages().send(data)
@@ -41,10 +45,10 @@ export const register = async (req, res, next) => {
         })
     } catch (err) {
         return next(createError("Something went wrong!", 500))
+        // return next(createError(err.message, 500))
     }
 }
 
-// email-activate route
 export const activateAccount = (req, res, next) => {
     const {token} = req.body
     try {
@@ -120,6 +124,7 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
     res.cookie('access_token', '', {maxAge: 1})
     res.redirect('http://localhost:3000')
+    // res.redirect(`${process.env.CLIENT_URL}`)
 }
 
 export const forgotPassword = async (req, res, next) => {
@@ -132,9 +137,13 @@ export const forgotPassword = async (req, res, next) => {
             from: 'pvaalarivan@gmail.com',
             to: email,
             subject: 'Account Activation Link',
+            // html: `
+            // <h2>Please click on given link to reset your password</h2>
+            // <a href="${process.env.CLIENT_URL}/new-password/${token}">${process.env.CLIENT_URL}/new-password${token}</a>
+            // `
             html: `
             <h2>Please click on given link to reset your password</h2>
-            <a href="${process.env.CLIENT_URL}/new-password/${token}">${process.env.CLIENT_URL}/new-password${token}</a>
+            <a href="http://localhost:3000/new-password/${token}">http://localhost:3000/new-password${token}</a>
             `
         };  
         const newUser = await user.updateOne({resetLink: token})

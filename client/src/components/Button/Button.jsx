@@ -1,9 +1,9 @@
 import styles from "./Button.module.css"
 
-const Button = ({text, onClickMethod, disabled, hidden, isBlue}) => {
+const Button = ({text, onClickMethod, disabled, hidden, isBlue, notClickable}) => {
     return (
         <>
-        <button className={`${styles.button}`} onClick={onClickMethod} disabled={disabled} hidden={hidden} style={{backgroundColor: (isBlue ? 'lightblue' : '#e92efb')}}>{text}</button>
+        <button className={notClickable ? `${styles.button}` : `${styles.clickButton}` } onClick={onClickMethod} disabled={disabled} hidden={hidden} style={{backgroundColor: (isBlue ? 'cornflowerblue' : '#e92efb')}}>{text}</button>
         </>
     )
 }

@@ -11,20 +11,10 @@ export const links = [
     },
     {
       id: 3,
-      url: `/services`,
-      text: "services",
-    },
-    {
-      id: 4,
-      url: "/contact",
-      text: "contact",
-    },
-    {
-      id: 5,
       url: "/login",
       text: "login",
     },
-    {id: 6,
+    {id: 4,
     url: "/register",
     text: "register",
     },
@@ -39,21 +29,26 @@ export const authOnlyLinks = [
   },
   {
     id: 2,
+    url: "/about",
+    text: "about",
+  },
+  {
+    id: 3,
     url: "/profile",
     text: "profile",
   },
   {
-    id: 3,
+    id: 4,
     url: `/sessions`,
     text: "track",
   },
   {
-    id: 4,
+    id: 5,
     url: "/pattern",
     text: "analytics",
   },
   {
-    id: 5,
+    id: 6,
     url: "/nutrition",
     text: 'nutrition'
   }    

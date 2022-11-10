@@ -1,0 +1,53 @@
+.headbox {
+    display: flex;
+    justify-content: center;
+    min-height: 10wh;
+    width: 100%;
+    padding-top: 15px;
+}
+
+.insthead {
+    position: relative;
+    font-size: 3.5rem;
+    color: #0000;
+    -webkit-text-stroke: 2px cornflowerblue;
+}
+
+.insthead::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: cornflowerblue;
+    -webkit-text-stroke: 0px cornflowerblue;
+    border-right: 2px solid cornflowerblue;
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+    /* margin: 10px 0;   */
+}
+
+.instheadNotanimate {
+    position: relative;
+    font-size: 3.5rem;
+    color: #0000;
+    -webkit-text-stroke: 2px cornflowerblue;
+}
+
+@keyframes animate
+{
+    0%,10%,100%
+    {
+        width: 0;
+    }
+    70%,90%
+    {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .insthead{
+      font-size: 2.4rem;
+    }
+}

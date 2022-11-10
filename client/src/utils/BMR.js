@@ -1,7 +1,7 @@
 export const BMR = (gender, age, height, weight) => {
     if (gender === "Male") {
-        return 10 * weight + 6.25 * height - 5 * age + 5
+        return Math.max(10 * weight + 6.25 * height - 5 * age + 5, 0)
     } else if (gender === "Female") {
-        return 10 * weight + 6.25 * height - 5 * age - 161
+        return Math.max(10 * weight + 6.25 * height - 5 * age - 161, 0)
     }
 }

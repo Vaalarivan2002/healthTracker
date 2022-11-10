@@ -2,7 +2,11 @@ import axios from "axios"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "../../components/Button/Button"
+import FormField from "../../components/FormField/FormField"
+import Heading from "../../components/Heading/Heading"
+import SimpleLoader from "../../components/SimpleLoader/SimpleLoader"
 import { AuthContext } from "../../context/AuthContext"
+import { REGISTER_FORM_FIELDS } from "../../data/RegisterDetails"
 import { confirmPassword, validateEmail, validatePassword } from "../../validators/validators"
 import styles from "./Register.module.css"
 
@@ -16,9 +20,13 @@ const Register = () => {
         password: undefined,
         passwrdToConfirm: undefined
     })
-    const handleChange = (e) => {
-        setCredentials(prev => ({...prev, [e.target.id] : e.target.value}))
+
+    const handleChange = (args) => {
+        let prevState = credentials
+        prevState[args.key] = args.value
+        setCredentials({ ...prevState })
     }
+
     const handleClick = async (e) => {        
         e.preventDefault()
         dispatch({type: "REGISTER_START"})
@@ -50,13 +58,36 @@ const Register = () => {
     }
     return (
         <>
-        <input type="text" placeholder="username" id="username" onChange={handleChange}/>
-        <input type={'email'} placeholder="Email" id="email" onChange={handleChange}/>
-        <input type="password" placeholder="Password" id="password" onChange={handleChange}/>
-        <input type="password" placeholder="Confirm Password" id="passwrdToConfirm" onChange={handleChange}/>
-        <Button disabled={loading} onClickMethod={handleClick} text={'Register'} />
-        {error && <span>{error}</span>}
-        {message && <span>{message}</span>}
+        <div className={`${styles.login_wrapper_main}`}>
+            <div className={`${styles.login_wrapper}`}>
+                <div className={`${styles.register_container}`}>
+                    <div className={`${styles.registerFormContainer}`}>
+                        <div style={{ display: "flex" }} className={styles.formWrapper}>
+                            <Heading text={'Register'} />
+                            {REGISTER_FORM_FIELDS.map((field, key) => {
+                            return (
+                                <>
+                                    <FormField
+                                        key={key}
+                                        type={field.type}
+                                        name={field.name}
+                                        heading={field.heading}
+                                        value={credentials}
+                                        setter={handleChange}
+                                    />
+
+                                </>
+                            );
+                        })}
+                        <Button disabled={loading} onClickMethod={handleClick} text={'Register'} />
+                        {error && <span>{error}</span>}
+                        <br />
+                        {message && <span>{message}</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </>
     )
 }

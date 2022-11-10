@@ -1,0 +1,139 @@
+.mainbox{
+    width: 100%;
+    padding-top: 70px;
+    background-image: url(./../../assets/images/bg/home.png);
+    background-attachment: fixed;
+    background-size: cover;
+    height: 86vh;
+}
+.wel_text{
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+.event_tit1,.event_tit2{
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    display: inline-flex;
+}
+.event_tit2{
+    animation: disp 0s 2s forwards;
+    visibility: hidden;
+    font-size: 3.3rem;
+}
+@keyframes disp {
+    to{
+        visibility: visible;
+    }
+}
+.event_tit2 > h1{
+    animation-delay: 2s;
+}
+.a{
+    animation-name: a;
+    animation-duration: 2s;
+}
+@keyframes a{
+    0%{
+        transform: translateX(400px) translateY(300px);
+    }
+}
+.b{
+    animation-name: b;
+    animation-duration: 2s;
+}
+@keyframes b{
+    0%{
+        transform: translateX(-400px) translateY(300px);
+    }
+}
+.c{
+    animation-name: c;
+    animation-duration: 2s;
+}
+@keyframes c{
+    0%{
+        transform: translateX(700px) translateY(-200px);
+    }
+}
+.d{
+    animation-name: d;
+    animation-duration: 2s;
+}
+@keyframes d{
+    0%{
+        transform: translateX(-400px) translateY(300px);
+    }
+}
+.e{
+    animation-name: e;
+    animation-duration: 2s;
+}
+@keyframes e{
+    0%{
+        transform: translateX(-800px) translateY(300px);
+    }
+}
+.f{
+    animation-name: f;
+    animation-duration: 2s;
+}
+@keyframes f{
+    0%{
+        transform: translateX(-650px) translateY(-500px);
+    }
+}
+.g{
+    animation-name: g;
+    animation-duration: 2s;
+}
+@keyframes g{
+    0%{
+        transform: translateX(-500px) translateY(500px);
+    }
+}
+.h{
+    animation-name: h;
+    animation-duration: 2s;
+}
+@keyframes h{
+    0%{
+        transform: translateX(-500px) translateY(500px);
+    }
+}
+
+.i{
+    animation-name: i;
+    animation-duration: 2s;
+}
+@keyframes i{
+    0%{
+        transform: translateX(500px) translateY(500px);
+    }
+}
+/* Media Queries */
+
+/* Above Tablet */
+@media only screen and (min-width: 1024px) {
+}
+
+/* Both Tablet and Mobile */
+@media only screen and (max-width: 1023px) {
+}
+
+/* Tablet only */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* Mobile only */
+@media only screen and (max-width: 767px) {
+    .wel_text{
+        font-size: 2rem;
+    }
+    .event_tit1{
+        font-size: 1.5rem;
+    }
+    .event_tit2{
+        font-size: 1.5rem;
+    }
+}

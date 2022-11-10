@@ -7,13 +7,16 @@ const FormField = ({
     value,
   setter,
   dropdownValues,
+  heading
 }) => {
     const renderFormField = () => {
-        if (["text", "password", "number"].includes(type)) {
+        if (["text", "password", "number", "email"].includes(type)) {
             return (
                 <>
-                <div className={`${styles.materialFormField}`}>
-                <input aria-required={"true"} type={type} required={true} name="text" id="field-text" className={`${styles.materialFormFieldInput}`} placeholder={placeholder} value={value[name]}
+                <div className={styles.form_container}>
+                <p className={`${styles.heading}`}>{heading}</p>
+                  
+                <input aria-required={"true"} type={type} required={true} name="text" id="field-text" value={value[name]}
                 onChange={(e) =>
                   setter({
                     key: name,
@@ -28,7 +31,8 @@ const FormField = ({
             )} else if (type === "dropdown") {
               return (
                 <>
-                
+                <div className={`${styles.form_container}`}>
+                        <p className={`${styles.heading}`}>{heading}</p>
                   <select required={"required"}
                     value={value[name]}
                     onChange={(e) =>
@@ -48,7 +52,8 @@ const FormField = ({
                         </option>
                       );
                     })}
-                  </select>                  
+                  </select>   
+                  </div>               
                 </>
               );
             }

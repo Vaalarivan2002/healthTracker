@@ -1,0 +1,144 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+.login_wrapper_main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.register_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--mb-6) 0;
+  background-image: url(./../../assets/images/bg/home.png);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.login_wrapper {  
+  width: 100%;
+  height: 110%;
+  display: flex;
+  justify-content: center;
+  padding: var(--mb-6) 0;
+  background-image: url(./../../assets/images/bg/home.png);
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.customOverlay {
+    color: transparent;
+    backdrop-filter: blur(8px);
+}
+
+.customModal {
+    width: 90%;
+    background-color: #230374 !important;    
+    border-radius: 20px;
+    border: 1px solid #e1e2e2;
+    scroll-behavior: smooth;
+}
+
+.register_container {   
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.boldText {
+  font-weight: 700;
+  margin-top: var(--mb-2);
+}
+
+.normalText {
+  margin: var(--mb-3) 0;
+}
+
+.subHeading {
+  letter-spacing: 0.1rem;
+  margin: var(--mb-4) 0 var(--mb-2) 0;
+  font-family: var(--primaryFontBold);
+}
+
+.registerFormContainer {
+  flex-basis: 50%;
+  justify-content: center;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
+  border-radius: 1rem;
+  padding: var(--mb-4) var(--mb-4);
+}
+
+.recaptcha_container {
+  margin: var(--mb-2);
+}
+
+.recaptcha {
+  display: inline-block !important;
+}
+
+.btn_s {
+  margin-top: 18px;
+  width: 100%;
+  background-color: #191970;
+  color: whitesmoke;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.foodinputStyle::placeholder {
+  color: green;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-self: center;
+  margin: var(--mb-1) 0;
+}
+
+/* Media Queries */
+
+/* Above Tablet */
+@media only screen and (min-width: 1024px) {
+}
+
+/* Both Tablet and Mobile */
+@media only screen and (max-width: 1023px) {
+  .register_container {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* Tablet only */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .registerFormContainer {
+    width: 60%;
+  }
+}
+
+/* Mobile only */
+@media only screen and (max-width: 767px) {
+  .registerFormContainer {
+    width: 90%;
+  }
+}

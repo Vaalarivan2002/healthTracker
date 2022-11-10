@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import styles from "./../../components/Navbar/Navbar.module.css"
+// import styles from "./Logout.module.css"
 import { AuthContext } from "./../../context/AuthContext"
 import axios from "axios"
 import {useNavigate } from "react-router-dom"
@@ -28,7 +29,7 @@ const Logout = (e) => {
     }
     return <>
     {errorMsg ? <ErrorPage errorMsg={'Something went wrong!'}/> : <> 
-    <li  className={styles.list_item}>
+    <li className={styles.list_item}>
         <button className={styles.nav_anchorBtn} onClick={handleClick}>Logout</button>
     </li>
     </>}            

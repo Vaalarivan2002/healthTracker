@@ -14,7 +14,8 @@ const app = express()
 
 const connect = async () => {
 try {
-    await mongoose.connect(process.env.MONGO);
+    // await mongoose.connect(process.env.MONGO);
+    await mongoose.connect('mongodb://localhost:27017/testDB')
     console.log('Connected to db');
   } catch (error) {
     throw error;
@@ -44,7 +45,11 @@ app.use((err, req, res, next) => {
   })
 })
 
-app.listen(process.env.PORT, () => {
-    connect();
-    console.log("Backend");
+// app.listen(process.env.PORT, () => {
+//     connect();
+//     console.log("Backend");
+// })
+app.listen(8800, () => {
+  connect();
+  console.log("Backend");
 })

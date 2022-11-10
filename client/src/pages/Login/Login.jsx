@@ -1,11 +1,16 @@
 import { useState, useContext, useEffect } from "react"
-import styles from "./Login.module.css"
+import styles from "./../Register/Register.module.css"
 import {useNavigate } from "react-router-dom"
 import { AuthContext } from "./../../context/AuthContext.js"
 import axios from "axios"
 import { Auth, SetAuth } from "./../../App.js"
 import ReCAPTCHA from "react-google-recaptcha"
 import Button from "./../../components/Button/Button.jsx"
+import LinkButton from "./../../components/LinkButton/LinkButton.jsx"
+import SimpleLoader from "./../../components/SimpleLoader/SimpleLoader.jsx"
+import Heading from "./../../components/Heading/Heading.jsx"
+import { LOGIN_FORM_FIELDS } from "./../../data/RegisterDetails.js"
+import FormField from "../../components/FormField/FormField"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -23,8 +28,10 @@ const Login = () => {
         password: undefined
     })
 
-    const handleChange = (e) => {
-        setCredentials(prev => ({...prev, [e.target.id] : e.target.value}))
+    const handleChange = (args) => {
+        let prevState = credentials
+        prevState[args.key] = args.value
+        setCredentials({ ...prevState })
     }    
 
     const handleClick = async e => {    
@@ -47,14 +54,52 @@ const Login = () => {
     }
 
 return <>
-        <form onSubmit={handleClick}>
-        <input type="text" placeholder="Username" id="username" onChange={handleChange}/>
-        <input type="password" placeholder="Password" id="password" onChange={handleChange}/>
-        <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={verifyCallback} />
+
+    <div className={`${styles.login_wrapper_main}`}>
+      <div className={`${styles.login_wrapper}`}>
+        <div className={`${styles.register_container}`}>
+          <div className={`${styles.registerFormContainer}`}>
+          {loading && <SimpleLoader message={"Logging in"} />}
+          <div
+                style={{ display: loading ? "none" : "flex" }}
+                className={`${styles.formWrapper}`}
+            >
+                <Heading text={'Login'} />
+
+        {LOGIN_FORM_FIELDS.map((field, key) => {
+            return (
+                <>
+                    <FormField
+                        key={key}
+                        type={field.type}
+                        name={field.name}
+                        heading={field.heading}
+                        value={credentials}
+                        setter={handleChange}
+                    />
+
+                </>
+            );
+        })}
+        <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={verifyCallback} theme='dark' size="normal" className="recaptcha"
+        />
+        <br />
+        <div>
         <Button disabled={loading || !isVerified} onClickMethod={handleClick} text={'Login'}/>
-        <a href="http://localhost:3000/reset-password">Forgot password?</a>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+         
+        {/* <LinkButton link={`${process.env.REACT_APP_CLIENT_URL}/reset-password`} /> */}
+        <LinkButton link={'http://localhost:3000/reset-password'} />
+        </div>
         {error && <span>{error}</span>}
-        </form>
+        </div>
+        </div>
+        </div>
+      </div>
+      </div>
         </>
 }
 

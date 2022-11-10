@@ -1,13 +1,16 @@
 import { useState } from "react"
 import { useContext } from "react"
 import { foods } from "./../../data/foods.js"
-import styles from "./Food.module.css"
-import { uppercaseWords } from "./../../utils/capitalize.js"
+import { lowercaseWords, uppercaseWords } from "./../../utils/capitalize.js"
+import Button from "../Button/Button.jsx"
+import { json } from "react-router-dom"
 
 const Food = (props) => {
     const {index, name, target, isWeekly, eatenQuantity, minusHandler, plusHandler, isOunce, type, trackHide, parentIndex, foodName, subcategoryEaten, categoryEaten, searchString} = props
     let message
     const leftToEat = target - eatenQuantity
+    const user = JSON.parse(localStorage.getItem('user'))
+    const relevantCalorieIndex = (user.calories - 1600) / 200
     let frequency = "Weekly"
     let unit = "ounces"
     if (!isOunce) {
@@ -36,15 +39,18 @@ const Food = (props) => {
         case "Tracker page by category":
             return <>
             <div>
-            <h3>{name} : {frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} </h3>
-            <button onClick={handlePlus} hidden={trackHide} > + </button>
-            <button onClick={handleMinus} hidden={trackHide || eatenQuantity === 0} > - </button>
+            
+            <h3>{name} : </h3>
+            <p>{frequency} target : {target} {unit}, Eaten Quantity : {eatenQuantity} {unit} </p>
+            <Button onClickMethod={handlePlus} hidden={trackHide} text={'+'} />
+            <Button onClickMethod={handleMinus} hidden={trackHide || eatenQuantity === 0} text={'-'} />
             {message && <span>{message}</span>}
-            </div></>
+            </div>
+            <br />  </>
         case "Tracker page by food":
             let categoryTarget, subcategoryTarget, categoryName, categoryUnit, subcategoryUnit, categoryFrequency, subcategoryFrequency
-            categoryTarget = foods[parentIndex].quantity
-            subcategoryTarget = foods[index].quantity
+            categoryTarget = foods[parentIndex].quantity[relevantCalorieIndex]
+            subcategoryTarget = foods[index].quantity[relevantCalorieIndex]
             categoryName = foods[parentIndex].name
             subcategoryUnit = foods[index].isOunce ? "ounces" : "cups"
             categoryUnit = foods[parentIndex].isOunce ? "ounces" : "cups"
@@ -77,8 +83,8 @@ const Food = (props) => {
             {parentIndex === index ? <>
             <div>
             Category : {categoryName} : {categoryFrequency} target : {categoryTarget} {categoryUnit}, Eaten Quantity : {categoryEaten} {categoryUnit}
-            <button onClick={handlePlus} > + </button>
-            <button onClick={handleMinus} hidden={subcategoryEaten === 0} > - </button>
+            <Button text={'+'} onClickMethod={handlePlus}></Button>
+            <Button text={'-'} onClickMethod={handleMinus} hidden={subcategoryEaten === 0}></Button>            
             </div>
             {
                 (categoryTarget - categoryEaten === 0) ? <> 
@@ -91,8 +97,10 @@ const Food = (props) => {
             <div>
             Subcategory : {foods[index].name} : {subcategoryFrequency} target : {subcategoryTarget} {subcategoryUnit}, Eaten Quantity : {subcategoryEaten} {subcategoryUnit}
             </div>
-            <button onClick={handlePlus} > + </button>
-            <button onClick={handleMinus} hidden={subcategoryEaten === 0} > - </button>
+        
+            <Button text={'+'} onClickMethod={handlePlus}></Button>
+            <Button text={'-'} onClickMethod={handleMinus} hidden={subcategoryEaten === 0}></Button>
+        
             {
                 (subcategoryTarget - subcategoryEaten === 0) ? <> 
                 {subcategoryFrequency} target reached
@@ -112,7 +120,11 @@ const Food = (props) => {
         case "Nutrition page":
             return <>
             <div>
-            <h3>{name} : {target} {unit}</h3>
+                <Button text={`${name} : ${target} ${unit}`} onClickMethod={() => {
+                    // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/foods/${lowercaseWords(name)}`
+                    window.location.href = `http://localhost:3000/foods/${lowercaseWords(name)}`
+                }}/>
+             
         </div>
             </>
         default:

@@ -18,14 +18,13 @@ const VerifyEmail = () => {
             token: lastSegment
         }
         try {
-            // dispatch({type: "VERIFICATION_START"})
             const res = await axios.post("/auth/email-activate", verifyObj)
             setAuth(true)
             dispatch({type: "REGISTER_SUCCESS", payload: res.data})
             localStorage.setItem('newMember', 'true')
             localStorage.setItem('username', `${res.data.username}`)
-
-            // navigate(`/profile/${res.data.username}`)
+            
+            // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/fill-details`
             window.location.href = 'http://localhost:3000/fill-details'
             return 
         } catch (err) {

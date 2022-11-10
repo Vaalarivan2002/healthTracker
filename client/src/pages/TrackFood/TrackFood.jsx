@@ -1,5 +1,5 @@
 import axios from "axios"
-import styles from "./TrackFood.module.css"
+// import styles from "./TrackFood.module.css"
 import Food from "./../../components/Food/Food.jsx"
 import TimeBar from "./../../components/TimeBar/TimeBar.jsx"
 import { createContext, useContext, useEffect, useState } from "react"
@@ -8,6 +8,8 @@ import { uppercaseWords } from "../../utils/capitalize"
 import { foods } from "./../../data/foods.js"
 import { foodMap } from "./../../data/foods.js"
 import ErrorPage from "./../ErrorPage/ErrorPage.jsx"
+// import styles from "./../../components/FormField/FormField.module.css"
+import styles from "./../Register/Register.module.css"
 
 const TrackFood = () => {
     let user = JSON.parse(localStorage.getItem('user'))
@@ -117,13 +119,17 @@ const TrackFood = () => {
     <>
     {errorMsg ? <ErrorPage errorMsg={'Something went wrong!'}/> : 
     <>
-<TimeBar />
+    <TimeBar />
+    <br />
         <div>
         <Button text={buttonText} onClickMethod={handleSearchClick} />
-
+        &nbsp;
         <input type="text" placeholder="Search foods..." onChange={(event) => {
             setFood(event.target.value)
-        }} disabled={categorySearch} hidden={categorySearch} value={food} />
+        }} disabled={categorySearch} hidden={categorySearch} value={food} className={styles.foodinputStyle} />
+        <br />
+        <br />
+        
         <ul>
 
             {
@@ -137,15 +143,15 @@ const TrackFood = () => {
                     const category = foodName.value
                     const index = category.index    
                     const parentIndex = category.parentIndex
-
-                    // write separate styles fr this 'type'
                     return (
                         <>
                         <Food foodName={foodName.key} type={'Tracker page by food'} 
                         index={category.index} parentIndex={category.parentIndex} categoryEaten={quantities[parentIndex]} subcategoryEaten={quantities[index]} plusHandler={plusHandler} minusHandler={minusHandler} searchString={food} />
+                        <br />
                         </>
                     )
                 })
+                
             }
         </ul>
         <ul>
@@ -164,8 +170,6 @@ const TrackFood = () => {
                     </li>
                 )
             } else {
-
-                // write separate styles fr groups
                 return (
                     <li key={index}>
                     <Food index={index} name={category.name} target={category.quantity[relevantCalorieIndex]} isWeekly={category.isWeekly} isSubGrp={category.subgroup} eatenQuantity={quantities[index]} minusHandler={minusHandler} plusHandler={plusHandler} isOunce={category.isOunce} type={"Tracker page by category"} trackHide={category.notShowAdder} parentIndex={category.parentIndex} />

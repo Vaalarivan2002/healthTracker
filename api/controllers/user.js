@@ -21,7 +21,7 @@ export const updateUser = async (req, res, next) => {
         res.status(200).json({...otherDetails})
 
     } catch (err) {
-        next(createError(err.message, 500))
+        next(createError('Something went wrong', 500))
 
     }
 }
@@ -46,7 +46,7 @@ export const getUser = async (req, res, next) => {
             ...otherDetails
         })
     } catch (err) {
-        next(createError(err.message, 500))
+        next(createError('Something went wrong!', 500))
     }
 }
 
@@ -72,7 +72,7 @@ export const patternUpdate = async (req, res, next) => {
         } = updatedUser._doc
         res.status(200).json({...otherDetails})
     } catch (err) {
-        next(createError(err.message, 500))
+        next(createError('Something went wrong!', 500))
 
     }
 }

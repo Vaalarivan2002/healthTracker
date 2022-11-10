@@ -1,15 +1,13 @@
 import axios, { AxiosError } from "axios"
 import { useContext, useEffect, useState } from "react"
-import { Auth, User } from "./../../App"
-import { AuthContext } from "./../../context/AuthContext.js"
 import ErrorPage from "./../ErrorPage/ErrorPage.jsx"
-import styles from "./Profile.module.css"
+import styles from "./../Register/Register.module.css"
 import Button from "./../../components/Button/Button"
-import { getUsername } from "./../../utils/localStorageHelper.js"
 import { BMR } from "./../../utils/BMR.js"
-import { faHourglass1 } from "@fortawesome/free-solid-svg-icons"
 import FormField from "../../components/FormField/FormField"
 import { toast, ToastContainer } from "react-toastify"
+import Heading from "../../components/Heading/Heading"
+import { PROFILE_FORM_FIELDS } from "./../../data/RegisterDetails.js"
 
 const userDetailsFormat = {
     age: "",
@@ -26,7 +24,6 @@ const Profile = () => {
     );
     const [calories, setCalories] = useState(null)
     
-
     const username = localStorage.getItem('username')
     const changeUserDetails = (args) => {
         let prevState = userDetails
@@ -54,8 +51,9 @@ const Profile = () => {
             }
             try {
             const user = await axios.get(`/users/${lastSegment}`)
-            setUserDetails(user.data)
             const {height, weight, age, gender} = user.data
+            setUserDetails({height, weight, age, gender})
+            
             setCalories(BMR(gender, age, height, weight))   
             } catch (err) {
                 setErrorMsg("Something went wrong!")
@@ -67,9 +65,10 @@ const Profile = () => {
     const handleClick = async e => {
         e.preventDefault()
         const keys = Object.keys(userDetails)
+        console.log(keys);
         for (let index = 0; index < keys.length; index++) {
             const element = keys[index];
-            if (userDetails[element] === "") {
+            if (userDetails[element] === "" || userDetails[element] === null) {
                 alert(`Enter a valid ${element}`)
                 return
             }
@@ -93,43 +92,46 @@ const Profile = () => {
 
     return (
         <>
+        
         {errorMsg ? 
         <ErrorPage errorMsg={errorMsg}/> :
         <>
-        <form >
-            <FormField 
-            type={'number'} 
-            placeholder='Age'
-            name={'age'}
-            value={userDetails}
-            setter={changeUserDetails}            
-            />
-            <FormField 
-            type={'dropdown'} 
-            placeholder='Gender'
-            name={'gender'}
-            value={userDetails}
-            setter={changeUserDetails}
-            dropdownValues={['Male', 'Female']}
-            />
-            <FormField 
-            type={'number'}
-            placeholder='Height'
-            name={'height'}
-            value={userDetails}
-            setter={changeUserDetails}
-            />
-            <FormField
-            type={'number'}
-            placeholder='Weight'
-            name={'weight'}
-            value={userDetails}
-            setter={changeUserDetails}
-            />
-            <Button onClickMethod={handleClick} text='Save changes' />
-            </form>
+        <div className={`${styles.login_wrapper_main}`}>
+            <div className={`${styles.login_wrapper}`}>
+                <div className={`${styles.register_container}`}>
+                    <div className={`${styles.registerFormContainer}`}>
+                        <div
+                                style={{ display: "flex" }}
+                                className={`${styles.formWrapper}`}
+                            >
+                                <Heading text={'Profile'} />
+                                
+                                {PROFILE_FORM_FIELDS.map((field, key) => {
+                            return (
+                                <>
+                                    <FormField
+                                        key={key}
+                                        type={field.type}
+                                        name={field.name}
+                                        heading={field.heading}
+                                        value={userDetails}
+                                        setter={changeUserDetails}
+                                        placeholder={(field.type === 'dropdown' ? 'Gender' : '')}
+                                        dropdownValues={['Female', 'Male']}
+                                    />
+
+                                </>
+                            );
+                        })}
+                            {(calories !== null) && <span>Your daily calorie needs : {Math.round(calories)} per day</span>}
+                            <br />
+                            <Button onClickMethod={handleClick} text='Save changes' />
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
             {errorMsg && <span>{(errorMsg)}</span>}
-            {calories && <span>Your daily calorie needs : {Math.round(calories)} per day</span>}
             <ToastContainer />
         </>}
         </>

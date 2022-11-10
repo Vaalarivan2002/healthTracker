@@ -69,7 +69,8 @@ const Pattern = () => {
 
         <div>
             <h1>Weekly targets</h1>
-            {weeklyTargetFoods.map((food, index) => {
+            {
+            weeklyTargetFoods.map((food, index) => {
                 const eaten = Math.min(food[2], food[1])
                 const percentage = (eaten / food[1]) * 100
                 return <>
@@ -87,7 +88,6 @@ const Pattern = () => {
                             ]                            
                         }
                     ],
-                       
                 }} 
                 options=
                 {{
@@ -110,7 +110,6 @@ const Pattern = () => {
                     return <>
                     <h2>{foodName}</h2>
                     <div className={styles.pieElement}>
-                        
                     <Pie data={{
                     labels: ['Achieved', 'Missed'],
                     datasets: [
@@ -132,7 +131,6 @@ const Pattern = () => {
                 }} 
                 />
                 </div>
-                
                     </>
                 })
             }

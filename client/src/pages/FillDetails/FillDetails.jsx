@@ -31,7 +31,8 @@ const FillDetails = () => {
     const isNewMember = localStorage.getItem('newMember')
     const username = localStorage.getItem('username')
     if (isNewMember === 'false') {
-        window.location.href = `http://localhost:3000/profile/${username}`
+            // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/profile/${username}`
+            window.location.href = `http://localhost:3000/profile/${username}`
     }
     
     const handleClick = async (e) => {
