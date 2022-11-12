@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useContext, useState } from "react"
+import ReCAPTCHA from "react-google-recaptcha"
 import { useNavigate } from "react-router-dom"
 import Button from "../../components/Button/Button"
 import FormField from "../../components/FormField/FormField"
@@ -12,6 +13,8 @@ import styles from "./Register.module.css"
 
 const Register = () => {
     const navigate = useNavigate()
+
+    const [isVerified, setIsVerified] = useState(false)
     const {loading, error, dispatch} = useContext(AuthContext)
     const [message, setMessage] = useState("")
     const [credentials, setCredentials] = useState({
@@ -39,6 +42,10 @@ const Register = () => {
             const isPasswrdsMatched = confirmPassword(password, passwordToConfirm)
             const isValidCredentials = (isValidEmail && isValidPasswrd && isPasswrdsMatched)
             if (isValidCredentials) {
+                if (!isVerified) {
+                    alert("Please verify that you are not a robot")
+                    return
+                }
                 const res = await axios.post("/auth/register", credentials)
                 setMessage("Please click on the verification link in your email to get started.")
             } else {
@@ -56,8 +63,16 @@ const Register = () => {
             dispatch({type: "REGISTER_FAILURE", payload: err.response.data.error})
         }
     }
+
+    const verifyCallback = () => {        
+        setIsVerified(true)
+    }
+
     return (
         <>
+        <div>
+            <br />
+            <br />
         <div className={`${styles.login_wrapper_main}`}>
             <div className={`${styles.login_wrapper}`}>
                 <div className={`${styles.register_container}`}>
@@ -79,6 +94,8 @@ const Register = () => {
                                 </>
                             );
                         })}
+                        <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={verifyCallback} theme='dark' size="normal" className="recaptcha" />
+        <br />
                         <Button disabled={loading} onClickMethod={handleClick} text={'Register'} />
                         {error && <span>{error}</span>}
                         <br />
@@ -87,6 +104,7 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         </>
     )

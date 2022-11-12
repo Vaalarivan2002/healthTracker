@@ -55,3 +55,11 @@ export const PROFILE_FORM_FIELDS = [
         name: "weight"
     },
 ]
+
+export const RESET_PASSWORD_FORM_FIELDS = [
+    {
+        type: "email",
+        heading: "Enter your email",
+        name: "email"
+    },
+]
