@@ -9,3 +9,4 @@ This project is a diet tracker built using MERN stack for my Software Developmen
     * Initialize MAILGUN_DOMAIN to the Mailgun domain for your account.
     * Initialize MAILGUN_KEY to the API key of your domain.
     * Add the email id of the account which you create in this site as 'authorized recipient' of your domain.
+* run 'yarn(or npm) start' in the api folder to enable the frontend access the api
