@@ -12,3 +12,5 @@ This project is a diet tracker built using MERN stack for my Software Developmen
 * run 'yarn(or npm) start' in the api folder to enable the frontend access the api
 
 [Video describing site's functionality](https://drive.google.com/file/d/1UKyvnHWbVpY8kf_MAj30DN9A9iMQ7IAq/view?usp=sharing)
+
+The daily calorie needs were calculated based on Mifflin St Jeor equation and the data for tracking was based on USDA guidelines for 2020-25.
