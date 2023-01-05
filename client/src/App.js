@@ -32,39 +32,25 @@ function App() {
   const [auth, setAuth] = useState(localStorage.getItem("user") && localStorage.getItem("user") !== null)
   const [errorMsg, setErrorMsg] = useState(null)
   const [user, setUser] = useState(null)  
-  const [lastDate, setLastDate] = useState(null)
   const today = new Date();
   
   useEffect(() => {
     const username = localStorage.getItem('username')
     const isThere = localStorage.getItem("user")
-    // console.log(isThere);
+
     const fetchUser = async () => {
       try {
         const res = await axios.get(`/users/${username}`)
-        // console.log(res.data);
-        // console.log(res.data);
         setUser(res.data)
-        // const username = res.data.username
-        // console.log(res.data);
         let found = false
-        const minute = today.getMinutes()
-        const hour = today.getHours()
         const date = today.getDate()
         const month = today.getMonth() + 1
 
         const sundayOffset = today.getDay()
         let nearestSpentSunday = new Date(new Date().setDate(today.getDate()-sundayOffset))
-        // let nearestSeven = Math.floor(minute / 7) * 7   // nearest spent sunday
-        const compareDate = [nearestSpentSunday.getDate(), nearestSpentSunday.getMonth() + 1]
         const upcomingSundayOffset = 7 - sundayOffset
-
-        // nearestSeven = (6 + nearestSeven) % 60
         const nextNearestSunday = new Date(new Date().setDate(today.getDate() + upcomingSundayOffset))
-
         const lastDate = res.data.dates[10][6]
-        
-        const currWeekEnd = res.data.dates[10][6]
         for (let index = 0; index < 7; index++) {
           const currWeekStart = res.data.dates[10][index]
           let currDate = currWeekStart[0], currMonth = currWeekStart[1]
@@ -73,80 +59,75 @@ function App() {
             break
           }
         }
-          if (!found) {
-            let currDate = lastDate[0]
-            let currMonth = lastDate[1]
-            let dayDifference = 0
-            let currentDate = nearestSpentSunday
-          
+        if (!found) {
+          let currDate = lastDate[0]
+          let currMonth = lastDate[1]
+          let currentDate = nearestSpentSunday
+        
           let offset = 1
           while (currDate !== currentDate.getDate() || currMonth !== currentDate.getMonth() + 1) {
             currentDate = new Date(new Date().setDate(today.getDate() - offset))
             offset++
           }
-            let daysToDelete = Math.min(offset - 1, 77)            
-            
-            let arraysToDelete = Math.ceil(daysToDelete / 7)
-            let numberOfWeeksToAdd = arraysToDelete
-            const userDates = []
-            const quantities = []
+          let daysToDelete = Math.min(offset - 1, 77)            
+          
+          let arraysToDelete = Math.ceil(daysToDelete / 7)
+          let numberOfWeeksToAdd = arraysToDelete
+          const userDates = []
+          const quantities = []
 
-            res.data.dates.forEach(element => {
-              userDates.push(element)
-            });
-            res.data.quantities.forEach(element => {
-              quantities.push(element)
-            });
+          res.data.dates.forEach(element => {
+            userDates.push(element)
+          });
+          res.data.quantities.forEach(element => {
+            quantities.push(element)
+          });
 
-            quantities.reverse()
-            userDates.reverse()
+          quantities.reverse()
+          userDates.reverse()
 
-            while (arraysToDelete > 0) {
-              arraysToDelete--
-              userDates.pop()
-              quantities.pop()
-            } 
+          while (arraysToDelete > 0) {
+            arraysToDelete--
+            userDates.pop()
+            quantities.pop()
+          } 
 
-            if (userDates.length >= 1)
-            userDates.reverse()
-            if (quantities.length >= 1)
-            quantities.reverse()
-                    
-            const tempWeeks = []
-            let dayToAdd = nextNearestSunday
-
-            let constDate = nextNearestSunday
-            let constDateCpy = nextNearestSunday
-            offset = upcomingSundayOffset - 1
-            while (numberOfWeeksToAdd--) {
-              const week = []
-              const qty = []
-              for (let index = 0; index < 7; index++) {
-                dayToAdd = new Date(new Date().setDate(today.getDate() + offset))
-                week.push([dayToAdd.getDate(), dayToAdd.getMonth() + 1])
-                offset--
-                qty.push(zeroQuantities)
-              }
-              week.reverse()
-              tempWeeks.push(week)
-              quantities.push(qty)
+          if (userDates.length >= 1)
+          userDates.reverse()
+          if (quantities.length >= 1)
+          quantities.reverse()
+                  
+          const tempWeeks = []
+          let dayToAdd = nextNearestSunday
+          offset = upcomingSundayOffset - 1
+          while (numberOfWeeksToAdd--) {
+            const week = []
+            const qty = []
+            for (let index = 0; index < 7; index++) {
+              dayToAdd = new Date(new Date().setDate(today.getDate() + offset))
+              week.push([dayToAdd.getDate(), dayToAdd.getMonth() + 1])
+              offset--
+              qty.push(zeroQuantities)
             }
-            tempWeeks.reverse()
-            tempWeeks.forEach(element => {
-              userDates.push(element)
-            });
-
-            if (userDates !== res.data.dates) {
-              console.log('hiu');
-              const reqObj = {
-                dates: userDates,
-                quantities: quantities,
-                username: username
-              }
-              const res = await axios.put('/users/update/dates', reqObj)
-              localStorage.setItem('user', JSON.stringify(res.data))
-            }
+            week.reverse()
+            tempWeeks.push(week)
+            quantities.push(qty)
           }
+          tempWeeks.reverse()
+          tempWeeks.forEach(element => {
+            userDates.push(element)
+          });
+
+          if (userDates !== res.data.dates) {
+            const reqObj = {
+              dates: userDates,
+              quantities: quantities,
+              username: username
+            }
+            const res = await axios.put('/users/update/dates', reqObj)
+            localStorage.setItem('user', JSON.stringify(res.data))
+          }
+        }
       } catch (err) {
         setErrorMsg("The application cannot be loaded.")
       }

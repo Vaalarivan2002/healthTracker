@@ -46,12 +46,12 @@ export const PROFILE_FORM_FIELDS = [
     },
     {
         type: "number",
-        heading: "Height",
+        heading: "Height(in cm)",
         name: "height"
     },
     {
         type: "number",
-        heading: "Weight",
+        heading: "Weight(in kg)",
         name: "weight"
     },
 ]
