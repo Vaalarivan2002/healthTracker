@@ -3,9 +3,10 @@ import Button from "../Button/Button";
 import styles from "./TimeBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { REACT_APP_CLIENT_URL } from "../../constants";
 
 const TimeBar = () => {
-    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
+    const rootUrl = REACT_APP_CLIENT_URL;
     let user = JSON.parse(localStorage.getItem('user'));
     const dateToHighlight = parseInt(localStorage.getItem('currentDate').split('-')[0]);
     const monthToHighlight = parseInt(localStorage.getItem('currentDate').split('-')[1]);

@@ -1,8 +1,9 @@
+import { REACT_APP_CLIENT_URL } from "../../constants.js";
 import TimeBar from "./../../components/TimeBar/TimeBar.jsx";
 import styles from "./Sessions.module.css";
 
 const Sessions = ({date, month}) => {
-  const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
+  const rootUrl = REACT_APP_CLIENT_URL;
   return (
       <>
       <TimeBar />

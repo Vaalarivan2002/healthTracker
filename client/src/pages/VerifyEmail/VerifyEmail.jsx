@@ -5,9 +5,10 @@ import { AuthContext } from "./../../context/AuthContext.js";
 import { useNavigate } from "react-router-dom";
 import { SetAuth } from "../../App";
 import Button from "../../components/Button/Button";
+import { REACT_APP_CLIENT_URL } from "../../constants.js";
 
 const VerifyEmail = () => {
-    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
+    const rootUrl = REACT_APP_CLIENT_URL;
     const setAuth = useContext(SetAuth);
     const {loading, error, dispatch} = useContext(AuthContext);
     const handleClick = async e => {

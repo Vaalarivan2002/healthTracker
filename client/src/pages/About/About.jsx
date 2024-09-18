@@ -1,8 +1,9 @@
+import { REACT_APP_CLIENT_URL } from "../../constants.js";
 import Heading from "./../../components/Heading/Heading.jsx";
 import styles from "./About.module.css"
 
 const About = () => {
-    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
+    const rootUrl = REACT_APP_CLIENT_URL;
     const IconPath = rootUrl + "/assets/images/Instructions/";
 
     return (    
