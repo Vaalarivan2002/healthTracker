@@ -5,7 +5,7 @@ import { AuthContextProvider } from './context/AuthContext.js';
 import axios from 'axios';
 import "./index.css"
 
-axios.defaults.baseURL = `${process.env.BACKEND_URL}`
+axios.defaults.baseURL = `${process.env.BACKEND_URL}/api`
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
