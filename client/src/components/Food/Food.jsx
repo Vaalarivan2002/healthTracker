@@ -1,7 +1,6 @@
 import { foods } from "./../../data/foods.js"
 import { lowercaseWords, uppercaseWords } from "./../../utils/capitalize.js"
 import Button from "../Button/Button.jsx"
-// import { rootUrl } from "../../constants.js";
 
 const Food = (props) => {
     const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;

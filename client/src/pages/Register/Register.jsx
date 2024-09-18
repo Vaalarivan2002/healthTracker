@@ -1,82 +1,78 @@
 import axios from "axios"
 import { useContext, useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
-import { useNavigate } from "react-router-dom"
 import Button from "../../components/Button/Button"
 import FormField from "../../components/FormField/FormField"
 import Heading from "../../components/Heading/Heading"
-import SimpleLoader from "../../components/SimpleLoader/SimpleLoader"
 import { AuthContext } from "../../context/AuthContext"
 import { SetAuth } from "../../App"
 import { REGISTER_FORM_FIELDS } from "../../data/RegisterDetails"
 import { confirmPassword, validateEmail, validatePassword } from "../../validators/validators"
 import styles from "./Register.module.css"
-// import { rootUrl } from "../../constants";
 
 const Register = () => {
     const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
-    const navigate = useNavigate()
-    const setAuth = useContext(SetAuth)
+    const setAuth = useContext(SetAuth);
 
-    const [isVerified, setIsVerified] = useState(false)
-    const {loading, error, dispatch} = useContext(AuthContext)
-    const [message, setMessage] = useState("")
+    const [isVerified, setIsVerified] = useState(false);
+    const {loading, error, dispatch} = useContext(AuthContext);
+    const [message, setMessage] = useState("");
     const [credentials, setCredentials] = useState({
         username: undefined,
         email: undefined,
         password: undefined,
         passwrdToConfirm: undefined
-    })
+    });
 
     const handleChange = (args) => {
         let prevState = credentials
         prevState[args.key] = args.value
         setCredentials({ ...prevState })
-    }
+    };
 
     const handleClick = async (e) => {        
-        e.preventDefault()
-        dispatch({type: "REGISTER_START"})
+        e.preventDefault();
+        dispatch({type: "REGISTER_START"});
         try {
             const email = credentials.email;
-            const username = credentials.username
-            const password = credentials.password
-            const passwordToConfirm = credentials.passwrdToConfirm
-            const isValidEmail = validateEmail(email)
-            const isValidPasswrd = validatePassword(password)
-            const isPasswrdsMatched = confirmPassword(password, passwordToConfirm)
-            const isValidCredentials = (isValidEmail && isValidPasswrd && isPasswrdsMatched)
+            const username = credentials.username;
+            const password = credentials.password;
+            const passwordToConfirm = credentials.passwrdToConfirm;
+            const isValidEmail = validateEmail(email);
+            const isValidPasswrd = validatePassword(password);
+            const isPasswrdsMatched = confirmPassword(password, passwordToConfirm);
+            const isValidCredentials = (isValidEmail && isValidPasswrd && isPasswrdsMatched);
             if (isValidCredentials) {
                 if (!isVerified) {
-                    alert("Please verify that you are not a robot")
-                    return
+                    alert("Please verify that you are not a robot");
+                    return;
                 }
-                const res = await axios.post("/auth/register", credentials)
-                setAuth(true)
-                dispatch({type: "REGISTER_SUCCESS", payload: res.data})
-                localStorage.setItem('newMember', 'true')
-                localStorage.setItem('username', username)
+                const res = await axios.post("/auth/register", credentials);
+                setAuth(true);
+                dispatch({type: "REGISTER_SUCCESS", payload: res.data});
+                localStorage.setItem('newMember', 'true');
+                localStorage.setItem('username', username);
                 setMessage("Successfully registered!");
                 window.location.href = rootUrl + '/fill-details';
             } else {
-                dispatch({type: "REGISTER_RESET"})
+                dispatch({type: "REGISTER_RESET"});
                 if (!isValidEmail) {
-                    alert("Please enter a valid email.")
+                    alert("Please enter a valid email.");
                 } else if (!isValidPasswrd) {
-                    alert("Password length must be atleast 8.")
+                    alert("Password length must be atleast 8.");
                 } else {
-                    alert("Passwords don't match.")
+                    alert("Passwords don't match.");
                 }
             }
         } catch (err) {
             // AxiosError structure
             console.log(err);
-            dispatch({type: "REGISTER_FAILURE", payload: err.response.data.error})
+            dispatch({type: "REGISTER_FAILURE", payload: err.response.data.error});
         }
     }
 
     const verifyCallback = () => {        
-        setIsVerified(true)
+        setIsVerified(true);
     }
 
     return (
@@ -119,6 +115,6 @@ const Register = () => {
         </div>
         </>
     )
-}
+};
 
-export default Register
+export default Register;
