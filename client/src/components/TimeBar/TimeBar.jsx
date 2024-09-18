@@ -1,10 +1,9 @@
 import { useState } from "react"
 import Button from "../Button/Button"
 import styles from "./TimeBar.module.css"
-import {useNavigate} from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-
+import { rootUrl } from "../../constants";
 
 const TimeBar = () => {
 
@@ -34,7 +33,7 @@ const TimeBar = () => {
             alert("Cannot track for future dates")
         } else {
             localStorage.setItem('currentDate', queryDate + '-' + queryMonth)
-            window.location.href = 'http://localhost:3000/sessions'
+            window.location.href = rootUrl + '/sessions';
             // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
         }   
     }
@@ -45,7 +44,7 @@ const TimeBar = () => {
         localStorage.setItem('currentWeek', currentWeek - 1)
         setCurrentWeek(currentWeek - 1)
             // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
-            window.location.href = 'http://localhost:3000/sessions'
+            window.location.href = rootUrl + '/sessions';
     }
 
     const handleNextClick = () => {
@@ -59,7 +58,7 @@ const TimeBar = () => {
         localStorage.setItem('currentWeek', currentWeek + 1)
         setCurrentWeek(currentWeek + 1)
             // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/sessions`
-            window.location.href = 'http://localhost:3000/sessions'
+            window.location.href = rootUrl + '/sessions';
     }
 
     return (<>

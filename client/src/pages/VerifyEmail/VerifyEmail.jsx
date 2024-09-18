@@ -5,6 +5,7 @@ import { AuthContext } from "./../../context/AuthContext.js"
 import { useNavigate } from "react-router-dom"
 import { SetAuth } from "../../App"
 import Button from "../../components/Button/Button"
+import { rootUrl } from "../../constants.js"
 
 const VerifyEmail = () => {
     const navigate = useNavigate()
@@ -25,7 +26,7 @@ const VerifyEmail = () => {
             localStorage.setItem('username', `${res.data.username}`)
             
             // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/fill-details`
-            window.location.href = 'http://localhost:3000/fill-details'
+            window.location.href = rootUrl + '/fill-details';
             return 
         } catch (err) {
             dispatch({type: "VERIFICATION_FAILURE", payload: err.response.data.error})

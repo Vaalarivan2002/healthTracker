@@ -1,12 +1,11 @@
-import { faL } from "@fortawesome/free-solid-svg-icons"
 import { useEffect } from "react"
 import { useReducer } from "react"
-import { createContext, useContext } from "react"
+import { createContext } from "react"
 
 const INITIAL_STATE = {
     user: JSON.parse(localStorage.getItem("user")) || null,
     loading: null,
-    error: null
+    error: null,
 }
 
 export const AuthContext = createContext(INITIAL_STATE)

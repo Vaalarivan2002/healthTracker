@@ -1,15 +1,14 @@
 import axios from "axios"
-// import styles from "./TrackFood.module.css"
 import Food from "./../../components/Food/Food.jsx"
 import TimeBar from "./../../components/TimeBar/TimeBar.jsx"
-import { createContext, useContext, useEffect, useState } from "react"
+import { useState } from "react"
 import Button from "./../../components/Button/Button.jsx"
 import { uppercaseWords } from "../../utils/capitalize"
 import { foods } from "./../../data/foods.js"
 import { foodMap } from "./../../data/foods.js"
 import ErrorPage from "./../ErrorPage/ErrorPage.jsx"
-// import styles from "./../../components/FormField/FormField.module.css"
 import styles from "./../Register/Register.module.css"
+import { toast, ToastContainer } from "react-toastify"
 
 const TrackFood = () => {
     let user = JSON.parse(localStorage.getItem('user'))
@@ -31,6 +30,8 @@ const TrackFood = () => {
                 outerIndex--
             }            
         }
+        // console.log(outerIndex);
+        // console.log(innerIndex);
         return [outerIndex, innerIndex, user.quantities[outerIndex][innerIndex]]
     }
 
@@ -51,27 +52,28 @@ const TrackFood = () => {
         e.preventDefault()
         try {
             const indices = fetchData(date, month)
-            const outerIndex = indices[0], innerIndex = indices[1]
-            const quantitiesCopy = user.quantities.slice(0, outerIndex)
+            const trackedWeekIndex = indices[0], trackedDayIndex = indices[1]
+            const quantitiesCopy = user.quantities.slice(0, trackedWeekIndex)
             const currentWeek = []
             for (let index = 0; index < 7; index++) {
-                if (index === innerIndex) {
+                if (index === trackedDayIndex) {
                     currentWeek.push(quantities)
                 } else {
-                    currentWeek.push(user.quantities[outerIndex][index])
+                    currentWeek.push(user.quantities[trackedWeekIndex][index])
                 }
             }
             quantitiesCopy.push(currentWeek)
-            for (let index = outerIndex + 1; index < 11; index++) {
-                quantitiesCopy.push(user.quantities[outerIndex])
+            for (let index = trackedWeekIndex + 1; index < 11; index++) {
+                quantitiesCopy.push(user.quantities[index])
             }
             const reqObj = {
                 quantities: quantitiesCopy,
                 username: user.username
             }   
             const res = await axios.put("/users/update/pattern", reqObj)
+            // console.log(res.data);
             localStorage.setItem('user', JSON.stringify(res.data))
-            console.log(res.data);
+            toast('Tracked successfully!')
         } catch (err) {
             setErrorMsg('Something went wrong!')
         }
@@ -182,7 +184,7 @@ const TrackFood = () => {
         </div>
     </>
     }
-    
+    <ToastContainer />
         </>
     
     )

@@ -15,4 +15,9 @@ for (let index = 0; index < 11; index++) {
     defaultQuantities.push(TwoDQuantities)
 }
 
+/*
+
+[[[15 elements]   7 element]   10 weeks]
+
+*/
 

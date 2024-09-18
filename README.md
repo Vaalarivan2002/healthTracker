@@ -3,7 +3,7 @@ This project is a diet tracker built using MERN stack for my Software Developmen
 
 ## Steps to spin the site up 
 * Install ReactJS and follow the steps in README.md of the client folder for React specific instructions.
-* Install MongoDB and MongoDB Compass in your local machine and create a testDB database.
+* Install MongoDB and MongoDB Compass in your local machine and create a testDB database. Start the MongoDB service from Task Manager > Services (if you are in Windows).
 * Initialize your own JWT, JWT_ACC_ACTIVATE and RESET_PASSWORD_KEY keys inside the .env file of api folder.
 * To enable email verification in the site, do the following in the .env file of the api:
     * Initialize MAILGUN_DOMAIN to the Mailgun domain for your account.

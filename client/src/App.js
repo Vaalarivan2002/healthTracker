@@ -2,16 +2,8 @@ import "./App.css"
 import "./fonts.css";
 import React, { useEffect, createContext, useState } from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import Home from "./pages/Home/Home.jsx";
-import Login from "./pages/Login/Login.jsx";
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
-import Register from "./pages/Register/Register.jsx";
-import FillDetails from "./pages/FillDetails/FillDetails.jsx";
-import ForgotPass from "./pages/ForgotPass/ForgotPass.jsx";
-import NewPass from "./pages/NewPass/NewPass.jsx"
 import AllRoutes from "./routes/AllRoutes.js";
 import axios from "axios";
 import { zeroQuantities } from "./data/foods.js";

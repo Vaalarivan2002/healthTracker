@@ -12,7 +12,7 @@ export const foods = [
     {
         name: "Vegetables",
         subgroup: false,
-        quantity: [2, 2, 2, 3, 3, 4, 4, 4],
+        quantity: [2, 2, 2, 3, 3, 4, 4, 4],    // [1600, 1800, 2000]
         index: 0,
         notShowAdder: true,
         parentIndex: -1,

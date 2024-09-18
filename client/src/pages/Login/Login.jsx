@@ -92,7 +92,7 @@ return <>
             &nbsp;
          
         {/* <LinkButton link={`${process.env.REACT_APP_CLIENT_URL}/reset-password`} /> */}
-        <LinkButton link={'http://localhost:3000/reset-password'} />
+        {/* <LinkButton link={'http://localhost:3000/reset-password'} /> */}
         </div>
         {error && <span>{error}</span>}
         </div>

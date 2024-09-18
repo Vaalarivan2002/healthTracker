@@ -22,7 +22,7 @@ export const GlobalStyles = createGlobalStyle`
       --primary: #04005e;
       --secondary:#440bd4;
       --tertiary:#ff2079;
-      --accent: #e92efb;
+      --accent: #3295a8;
       --text : ${(props) => props.theme.text};
       --backgroundText : ${(props) => props.theme.backgroundText};
       --bg : ${(props) => props.theme.bg};

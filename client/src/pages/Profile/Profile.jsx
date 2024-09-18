@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react"
 import ErrorPage from "./../ErrorPage/ErrorPage.jsx"
 import styles from "./../Register/Register.module.css"
 import Button from "./../../components/Button/Button"
-import { BMR } from "./../../utils/BMR.js"
 import FormField from "../../components/FormField/FormField"
+import { BMR } from "./../../utils/BMR.js"
 import { toast, ToastContainer } from "react-toastify"
 import Heading from "../../components/Heading/Heading"
 import { PROFILE_FORM_FIELDS } from "./../../data/RegisterDetails.js"
@@ -17,7 +17,6 @@ const userDetailsFormat = {
 };
 
 const Profile = () => {
-
     const [errorMsg, setErrorMsg] = useState(null)
     const [userDetails, setUserDetails] = useState(
         userDetailsFormat
@@ -72,7 +71,6 @@ const Profile = () => {
                 alert(`Enter a valid ${element}`)
                 return
             }
-            
         }
         
         try {
@@ -108,7 +106,7 @@ const Profile = () => {
                                 
                                 {PROFILE_FORM_FIELDS.map((field, key) => {
                             return (
-                                <>
+                                <>  
                                     <FormField
                                         key={key}
                                         type={field.type}
@@ -123,8 +121,8 @@ const Profile = () => {
                                 </>
                             );
                         })}
-                            {(calories !== null) && <span>Your daily calorie needs : {Math.round(calories)} per day</span>}
-                            <br />
+                            {(calories !== null) && <span>Your daily calorie needs : {calories === undefined ? 0 : Math.round(calories)} per day</span>}
+                            
                             <Button onClickMethod={handleClick} text='Save changes' />
                             </div>
                         </div>

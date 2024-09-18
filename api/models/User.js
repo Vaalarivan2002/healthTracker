@@ -57,10 +57,10 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    resetLink: {
-        data: String,
-        default: "",
-    },
+    // resetLink: {
+    //     data: String,
+    //     default: "",
+    // },
     quantities: 
         {
             type: [{type: [{type: [{type: Number}]}]}],
@@ -74,4 +74,4 @@ const UserSchema = new mongoose.Schema({
 }, 
 { timestamps: true})
 
-export default mongoose.model("User", UserSchema)
+export default mongoose.model("User", UserSchema);

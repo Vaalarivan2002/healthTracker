@@ -4,7 +4,9 @@ import Food from "./../../components/Food/Food.jsx"
 
 const Nutrition = () => {
     let user = JSON.parse(localStorage.getItem('user'))
-    const relevantCalorieIndex = (user.calories - 1600) / 200
+    let relevantCalorieIndex = (user.calories - 1600) / 200;
+    if (relevantCalorieIndex < 0) relevantCalorieIndex = 0;
+
     return (
         <>
         <h1>Recommended nutrition</h1>
@@ -13,6 +15,8 @@ const Nutrition = () => {
         <h4>Daily target : </h4>
         <br />
         {foods.filter((food) => {
+            // console.log(food);
+            // console.log(relevantCalorieIndex);
             if (!food.isWeekly) return food
         })
         .map((food) => {

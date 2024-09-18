@@ -1,38 +1,36 @@
-import { useState } from "react"
-import { useContext } from "react"
 import { foods } from "./../../data/foods.js"
 import { lowercaseWords, uppercaseWords } from "./../../utils/capitalize.js"
 import Button from "../Button/Button.jsx"
-import { json } from "react-router-dom"
+import { rootUrl } from "../../constants.js";
 
 const Food = (props) => {
-    const {index, name, target, isWeekly, eatenQuantity, minusHandler, plusHandler, isOunce, type, trackHide, parentIndex, foodName, subcategoryEaten, categoryEaten, searchString} = props
-    let message
-    const leftToEat = target - eatenQuantity
-    const user = JSON.parse(localStorage.getItem('user'))
-    const relevantCalorieIndex = (user.calories - 1600) / 200
-    let frequency = "Weekly"
-    let unit = "ounces"
+    const {index, name, target, isWeekly, eatenQuantity, minusHandler, plusHandler, isOunce, type, trackHide, parentIndex, foodName, subcategoryEaten, categoryEaten, searchString} = props;
+    let message;
+    const leftToEat = target - eatenQuantity;
+    const user = JSON.parse(localStorage.getItem('user'));
+    const relevantCalorieIndex = (user.calories - 1600) / 200;
+    let frequency = "Weekly";
+    let unit = "ounces";
     if (!isOunce) {
-        unit = "cups"
+        unit = "cups";
     }
     if (!isWeekly) {
-        frequency = "Daily"
+        frequency = "Daily";
     } 
     if (leftToEat < 0) {
-        message = frequency + " limit exceeded"
+        message = frequency + " limit exceeded";
     } else if (leftToEat === 0) {
-        message = frequency + " target reached"
+        message = frequency + " target reached";
     }   
     
     const handlePlus = (e) => {
-        plusHandler(index, parentIndex)
-        e.preventDefault()
+        plusHandler(index, parentIndex);
+        e.preventDefault();
     }
 
     const handleMinus = (e) => {
-        minusHandler(index, parentIndex)
-        e.preventDefault()
+        minusHandler(index, parentIndex);
+        e.preventDefault();
     }
 
     switch (type) {
@@ -122,7 +120,7 @@ const Food = (props) => {
             <div>
                 <Button text={`${name} : ${target} ${unit}`} onClickMethod={() => {
                     // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/foods/${lowercaseWords(name)}`
-                    window.location.href = `http://localhost:3000/foods/${lowercaseWords(name)}`
+                    window.location.href = `${rootUrl}/foods/${lowercaseWords(name)}`
                 }}/>
              
         </div>

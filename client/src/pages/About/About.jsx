@@ -1,7 +1,8 @@
+import { rootUrl } from "../../constants.js";
 import Heading from "./../../components/Heading/Heading.jsx";
 import styles from "./About.module.css"
 // const IconPath = `${process.env.PUBLIC_URL}/assets/images/Instructions/`;
-const IconPath = "http://localhost:3000/assets/images/Instructions/";
+const IconPath = rootUrl + "/assets/images/Instructions/";
 const About = () => {
     return (    
         <>

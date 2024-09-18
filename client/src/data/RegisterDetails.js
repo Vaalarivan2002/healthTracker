@@ -33,6 +33,33 @@ export const REGISTER_FORM_FIELDS = [
     },
 ]
 
+export const FILL_DETAILS_FORM_FIELDS = [
+    {
+        type: "number",
+        heading: "Age",
+        name: "age",
+        // placeholder: "Age",
+    },
+    {
+        type: "dropdown",
+        heading: "Gender",
+        name: "gender",
+        // placeholder: "Gender",
+    },
+    {
+        type: "number",
+        heading: "Height(in cm)",
+        name: "height",
+        // placeholder: "Height",
+    },
+    {
+        type: "number",
+        heading: "Weight(in kg)",
+        name: "weight",
+        // placeholder: "Weight",
+    },
+]
+
 export const PROFILE_FORM_FIELDS = [
     {
         type: "number",

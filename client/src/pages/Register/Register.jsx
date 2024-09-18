@@ -7,12 +7,15 @@ import FormField from "../../components/FormField/FormField"
 import Heading from "../../components/Heading/Heading"
 import SimpleLoader from "../../components/SimpleLoader/SimpleLoader"
 import { AuthContext } from "../../context/AuthContext"
+import { SetAuth } from "../../App"
 import { REGISTER_FORM_FIELDS } from "../../data/RegisterDetails"
 import { confirmPassword, validateEmail, validatePassword } from "../../validators/validators"
 import styles from "./Register.module.css"
+import { rootUrl } from "../../constants"
 
 const Register = () => {
     const navigate = useNavigate()
+    const setAuth = useContext(SetAuth)
 
     const [isVerified, setIsVerified] = useState(false)
     const {loading, error, dispatch} = useContext(AuthContext)
@@ -35,6 +38,7 @@ const Register = () => {
         dispatch({type: "REGISTER_START"})
         try {
             const email = credentials.email;
+            const username = credentials.username
             const password = credentials.password
             const passwordToConfirm = credentials.passwrdToConfirm
             const isValidEmail = validateEmail(email)
@@ -47,7 +51,12 @@ const Register = () => {
                     return
                 }
                 const res = await axios.post("/auth/register", credentials)
-                setMessage("Please click on the verification link in your email to get started.")
+                setAuth(true)
+                dispatch({type: "REGISTER_SUCCESS", payload: res.data})
+                localStorage.setItem('newMember', 'true')
+                localStorage.setItem('username', username)
+                setMessage("Successfully registered!");
+                window.location.href = rootUrl + '/fill-details';
             } else {
                 dispatch({type: "REGISTER_RESET"})
                 if (!isValidEmail) {
@@ -60,6 +69,7 @@ const Register = () => {
             }
         } catch (err) {
             // AxiosError structure
+            console.log(err);
             dispatch({type: "REGISTER_FAILURE", payload: err.response.data.error})
         }
     }

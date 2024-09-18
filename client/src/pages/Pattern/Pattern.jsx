@@ -1,9 +1,7 @@
-import Food from "./../../components/Food/Food.jsx"
 import { foods } from "./../../data/foods.js"
 import styles from "./Pattern.module.css"
 import Button from "./../../components/Button/Button.jsx"
 import { useState } from "react"
-import { createContext } from "react"
 import 'chart.js/auto'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import {Pie} from 'react-chartjs-2'
