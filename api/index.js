@@ -48,11 +48,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// app.listen(process.env.PORT, () => {
-//     connect();
-//     console.log("Backend");
-// })
-app.listen(8800, () => {
+
+const port = process.env.PORT || 8800;
+app.listen(port, () => {
   connect();
   console.log("Backend");
 })

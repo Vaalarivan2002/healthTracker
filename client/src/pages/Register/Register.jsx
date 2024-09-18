@@ -11,9 +11,10 @@ import { SetAuth } from "../../App"
 import { REGISTER_FORM_FIELDS } from "../../data/RegisterDetails"
 import { confirmPassword, validateEmail, validatePassword } from "../../validators/validators"
 import styles from "./Register.module.css"
-import { rootUrl } from "../../constants"
+// import { rootUrl } from "../../constants";
 
 const Register = () => {
+    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
     const navigate = useNavigate()
     const setAuth = useContext(SetAuth)
 

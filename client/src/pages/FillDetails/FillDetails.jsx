@@ -8,7 +8,7 @@ import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { FILL_DETAILS_FORM_FIELDS } from "../../data/RegisterDetails.js"
 import Heading from "../../components/Heading/Heading"
-import { rootUrl } from "../../constants.js"
+// import { rootUrl } from "../../constants.js"
 
 const userDetailsFormat = {
     age: "",
@@ -18,6 +18,7 @@ const userDetailsFormat = {
 };
 
 const FillDetails = () => {
+    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
     const navigate = useNavigate()
     
     const [errorMsg, setErrorMsg] = useState(null)

@@ -1,13 +1,14 @@
-import styles from "./VerifyEmail.module.css"
-import axios from "axios"
-import { useContext } from "react"
-import { AuthContext } from "./../../context/AuthContext.js"
-import { useNavigate } from "react-router-dom"
-import { SetAuth } from "../../App"
-import Button from "../../components/Button/Button"
-import { rootUrl } from "../../constants.js"
+import styles from "./VerifyEmail.module.css";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "./../../context/AuthContext.js";
+import { useNavigate } from "react-router-dom";
+import { SetAuth } from "../../App";
+import Button from "../../components/Button/Button";
+// import { rootUrl } from "../../constants.js";
 
 const VerifyEmail = () => {
+    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
     const navigate = useNavigate()
     const setAuth = useContext(SetAuth)
     const {loading, error, dispatch} = useContext(AuthContext)

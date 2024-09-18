@@ -1,9 +1,10 @@
 import { foods } from "./../../data/foods.js"
 import { lowercaseWords, uppercaseWords } from "./../../utils/capitalize.js"
 import Button from "../Button/Button.jsx"
-import { rootUrl } from "../../constants.js";
+// import { rootUrl } from "../../constants.js";
 
 const Food = (props) => {
+    const rootUrl = `${process.env.REACT_APP_CLIENT_URL}`;
     const {index, name, target, isWeekly, eatenQuantity, minusHandler, plusHandler, isOunce, type, trackHide, parentIndex, foodName, subcategoryEaten, categoryEaten, searchString} = props;
     let message;
     const leftToEat = target - eatenQuantity;
@@ -119,7 +120,6 @@ const Food = (props) => {
             return <>
             <div>
                 <Button text={`${name} : ${target} ${unit}`} onClickMethod={() => {
-                    // window.location.href = `${process.env.REACT_APP_CLIENT_URL}/foods/${lowercaseWords(name)}`
                     window.location.href = `${rootUrl}/foods/${lowercaseWords(name)}`
                 }}/>
              
@@ -127,6 +127,6 @@ const Food = (props) => {
             </>
         default:
     }
-}
+};
 
-export default Food
+export default Food;
