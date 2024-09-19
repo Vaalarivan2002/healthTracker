@@ -29,7 +29,21 @@ mongoose.connection.on("disconnected", () => {
 app.use(bodyParser.urlencoded({ extended: false }))  // this middleware doesnt have a mount path. Hence this is called everytime a new request is made to the backend
 
 app.use(cookieParser());
-app.use(cors());
+
+const allowedOrigins = [`${process.env.CLIENT_URL}`];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allows credentials such as cookies, authorization headers, etc.
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // these 2 middlewares have a mount path
