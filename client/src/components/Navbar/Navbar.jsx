@@ -1,26 +1,23 @@
 import styles from './Navbar.module.css'
-import {NavLink} from 'react-router-dom'
-import React, { useContext, useEffect, useState } from 'react';
-import createReactClass from 'create-react-class'
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faXmark, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Logout from '../Logout/Logout';
 import { links, authOnlyLinks } from './../../data/links';
-import axios from 'axios';
 import { Auth } from './../../App.js';
 
 const Navbar = () => {
-  const [show, setShow] = useState(false)
-  const auth = useContext(Auth)
-  let linksCopy = links
+  const [show, setShow] = useState(false);
+  const auth = useContext(Auth);
+  let linksCopy = links;
   
   if (auth) {
-    linksCopy=authOnlyLinks
+    linksCopy=authOnlyLinks;
   }
   
   return (
     <>
-      <header className={styles.nav_header}>
+      <div className={styles.nav_header}>
         <div className={styles.logo}>
           <h1>
           <a className={styles.nav_heading} href={"/"} >HealthifyYou</a>
@@ -65,9 +62,9 @@ const Navbar = () => {
           <button className={styles.nav_button} onClick={() => setShow(!show)}>{show ?         <FontAwesomeIcon className={styles.nav_icon} icon={faTimes}></FontAwesomeIcon>
  : <FontAwesomeIcon className={styles.nav_icon} icon={faBars}/>}</button>
         </div>
-      </header>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
