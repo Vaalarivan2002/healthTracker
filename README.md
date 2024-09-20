@@ -2,7 +2,7 @@
 This project is a diet tracker built using MERN stack for my Software Development Laboratory course. It gives calorie specific diet recommendation which is based on USDA guidelines for 2020-2025 and also provides weekly diet analysis.
 You can view the deployed project at: https://healthtracker-client.onrender.com/
 
-## Steps to spin the site up 
+## Steps to spin the site up in your computer
 * Install ReactJS and follow the steps in README.md of the client folder for React specific instructions.
 * Install MongoDB and MongoDB Compass in your local machine and create a testDB database. Start the MongoDB service from Task Manager > Services (if you are in Windows).
 * Initialize your own JWT, JWT_ACC_ACTIVATE and RESET_PASSWORD_KEY keys inside the .env file of api folder.
