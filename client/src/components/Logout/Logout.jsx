@@ -18,11 +18,11 @@ const Logout = (e) => {
         dispatch({type: "LOGOUT"});
         try {
             const res = await axios.get("/auth/logout");
-            console.log(res);
-            
-            localStorage.removeItem('username');
-            localStorage.removeItem('newMember');
-            setAuth(false);
+            if (res.data.message === "Logout successful!") {
+                localStorage.removeItem('username');
+                localStorage.removeItem('newMember');
+                setAuth(false);
+            } else throw Error("Something went wrong!");
         } catch (err) {
             setErrorMsg('Something went wrong!');
         }

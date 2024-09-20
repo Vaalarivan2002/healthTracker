@@ -6,8 +6,6 @@ import axios from 'axios';
 import "./index.css";
 import { BACKEND_URL } from './constants.js';
 
-
-
 axios.defaults.baseURL = `${BACKEND_URL}/api`;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
