@@ -1,5 +1,6 @@
 # healthTracker
 This project is a diet tracker built using MERN stack for my Software Development Laboratory course. It gives calorie specific diet recommendation which is based on USDA guidelines for 2020-2025 and also provides weekly diet analysis.
+You can view the deployed project at: https://healthtracker-client.onrender.com/
 
 ## Steps to spin the site up 
 * Install ReactJS and follow the steps in README.md of the client folder for React specific instructions.
