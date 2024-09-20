@@ -100,7 +100,8 @@ export const login = async (req, res, next) => {
 
 export const logout = (req, res) => {
     res.cookie('access_token', '', { maxAge: 1 })
-    res.redirect(`${process.env.CLIENT_URL}`);
+    // res.redirect(`${process.env.CLIENT_URL}`);
+    res.status(200).json({'message': 'Logout successful!'});
 }
 
 export const activateAccount = (req, res, next) => {

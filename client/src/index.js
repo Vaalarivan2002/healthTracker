@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { AuthContextProvider } from './context/AuthContext.js';
 import axios from 'axios';
-import "./index.css"
+import "./index.css";
 import { BACKEND_URL } from './constants.js';
 
 

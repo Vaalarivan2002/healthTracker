@@ -1,57 +1,56 @@
-import { useState, useContext, useEffect } from "react"
-import styles from "./../Register/Register.module.css"
-import {useNavigate } from "react-router-dom"
-import { AuthContext } from "./../../context/AuthContext.js"
-import axios from "axios"
-import { Auth, SetAuth } from "./../../App.js"
-import ReCAPTCHA from "react-google-recaptcha"
-import Button from "./../../components/Button/Button.jsx"
-import LinkButton from "./../../components/LinkButton/LinkButton.jsx"
-import SimpleLoader from "./../../components/SimpleLoader/SimpleLoader.jsx"
-import Heading from "./../../components/Heading/Heading.jsx"
-import { LOGIN_FORM_FIELDS } from "./../../data/RegisterDetails.js"
-import FormField from "../../components/FormField/FormField"
+import { useState, useContext } from "react";
+import styles from "./../Register/Register.module.css";
+import {useNavigate } from "react-router-dom";
+import { AuthContext } from "./../../context/AuthContext.js";
+import axios from "axios";
+import { SetAuth } from "./../../App.js";
+import ReCAPTCHA from "react-google-recaptcha";
+import Button from "./../../components/Button/Button.jsx";
+import SimpleLoader from "./../../components/SimpleLoader/SimpleLoader.jsx";
+import Heading from "./../../components/Heading/Heading.jsx";
+import { LOGIN_FORM_FIELDS } from "./../../data/RegisterDetails.js";
+import FormField from "../../components/FormField/FormField";
 
 const Login = () => {
-    const navigate = useNavigate()
-    const setAuth = useContext(SetAuth)
-    const {loading, error, dispatch} = useContext(AuthContext)
-    const user = JSON.parse(localStorage.getItem("user")) || null
+    const navigate = useNavigate();
+    const setAuth = useContext(SetAuth);
+    const {loading, error, dispatch} = useContext(AuthContext);
+    const user = JSON.parse(localStorage.getItem("user")) || null;
     if (user != null) {
         // eslint-disable-next-line no-restricted-globals
-        history.go(-1)
+        history.go(-1);
     }
 
-    const [isVerified, setIsVerified] = useState(false)
+    const [isVerified, setIsVerified] = useState(false);
     const [credentials, setCredentials] = useState({
         username: undefined,
         password: undefined
-    })
+    });
 
     const handleChange = (args) => {
-        let prevState = credentials
-        prevState[args.key] = args.value
-        setCredentials({ ...prevState })
-    }    
+        let prevState = credentials;
+        prevState[args.key] = args.value;
+        setCredentials({ ...prevState });
+    };
 
     const handleClick = async e => {    
-        e.preventDefault()
-        dispatch({type: "LOGIN_START"})
+        e.preventDefault();
+        dispatch({type: "LOGIN_START"});
         try {
-            const res = await axios.post("/auth/login", credentials)
-                dispatch({type: "LOGIN_SUCCESS", payload: res.data})
-                setAuth(true);
-                localStorage.setItem('newMember', 'false')
-                localStorage.setItem('username', res.data.username)
-                navigate("/")
+            const res = await axios.post("/auth/login", credentials);
+            dispatch({type: "LOGIN_SUCCESS", payload: res.data});
+            setAuth(true);
+            localStorage.setItem('newMember', 'false');
+            localStorage.setItem('username', res.data.username);
+            navigate("/");
         } catch (err) {
-            dispatch({type: "LOGIN_FAILURE", payload: err.response.data.error})
+            dispatch({type: "LOGIN_FAILURE", payload: err.response.data.error});
         }
-    }
+    };
 
     const verifyCallback = () => {        
-        setIsVerified(true)
-    }
+        setIsVerified(true);
+    };
 
 return <>
 
@@ -101,6 +100,6 @@ return <>
       </div>
       </div>
         </>
-}
+};
 
-export default Login
+export default Login;

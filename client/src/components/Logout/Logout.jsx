@@ -15,9 +15,11 @@ const Logout = (e) => {
     const handleClick = async (e) => {
         e.preventDefault();
 
-        dispatch({type: "LOGOUT"})
+        dispatch({type: "LOGOUT"});
         try {
             const res = await axios.get("/auth/logout");
+            console.log(res);
+            
             localStorage.removeItem('username');
             localStorage.removeItem('newMember');
             setAuth(false);
@@ -32,6 +34,6 @@ const Logout = (e) => {
     </li>
     </>}            
     </>
-}
+};
 
-export default Logout
+export default Logout;

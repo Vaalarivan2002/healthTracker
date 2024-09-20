@@ -1,14 +1,15 @@
 import express from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import mongoose from "mongoose";
-import authRoute from "./routes/auth.js"
-import usersRoute from "./routes/users.js"
-import cookieParser from "cookie-parser"
-import cors from "cors"
-import bodyParser from "body-parser"
+import authRoute from "./routes/auth.js";
+import usersRoute from "./routes/users.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import bodyParser from "body-parser";
 
-dotenv.config()
-const app = express()
+dotenv.config();
+const app = express();
+
 
 const connect = async () => {
   try {
@@ -66,4 +67,4 @@ const port = process.env.PORT || 8800;
 app.listen(port, () => {
   connect();
   console.log("Backend");
-})
+});
